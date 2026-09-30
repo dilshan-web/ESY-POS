@@ -1,6 +1,5 @@
-// Service Worker for Mobile POS PWA - 100% Offline First
-// All libraries are local - no internet required after first load
-const CACHE_NAME = 'mob-pos-v2.0.0';
+const CACHE_NAME = 'mob-pos-v2.1.1';
+
 
 // ALL assets are local — no CDN needed
 const ASSETS_TO_CACHE = [

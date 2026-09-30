@@ -12,7 +12,7 @@
   <meta name="application-name" content="MOB POS" />
   <meta name="theme-color" content="#10b981" />
 
-  <title>Mobile POS - Offline Sales & 5% Salary Tracker</title>
+  <title>Mobile POS - Offline Sales & Commission Tracker</title>
 
   <!-- PWA Manifest & Multi-Resolution Icons for Android & iOS -->
   <link rel="manifest" href="./manifest.json" />
@@ -142,7 +142,7 @@
         <span>MOB POS</span>
         <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">Offline</span>
       </h1>
-      <p class="text-xs text-slate-400 mt-1 font-medium">Sales, Free Issues & 5% Commission Tracker</p>
+      <p class="text-xs text-slate-400 mt-1 font-medium">Sales, Free Issues & Commission Tracker</p>
     </div>
 
     <!-- PIN Display Box -->
@@ -358,7 +358,7 @@
           </div>
         </div>
 
-        <!-- FEATURED CARD: 5% SALARY / COMMISSION ACCUMULATOR -->
+        <!-- FEATURED CARD: SALARY / COMMISSION ACCUMULATOR -->
         <div class="bg-gradient-to-r from-amber-900/40 via-yellow-900/40 to-emerald-900/40 border-2 border-yellow-500/40 p-4 rounded-2xl shadow-xl space-y-3 relative overflow-hidden">
           <div class="absolute -right-6 -bottom-6 w-24 h-24 bg-yellow-500/10 rounded-full blur-xl pointer-events-none"></div>
 
@@ -368,17 +368,17 @@
                 <i data-lucide="coins" class="w-4 h-4"></i>
               </div>
               <div>
-                <h4 class="text-xs font-bold uppercase tracking-wider text-yellow-300">5% Salary Accumulator</h4>
-                <p class="text-[10px] text-slate-300">Daily 5% Commission & Running Total</p>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-yellow-300">Commission Salary Accumulator</h4>
+                <p class="text-[10px] text-slate-300">Per-Product Commission & Running Total</p>
               </div>
             </div>
-            <span class="text-[10px] font-bold px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300">5% Rate</span>
+            <span class="text-[10px] font-bold px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300">Per Item %</span>
           </div>
 
           <div class="grid grid-cols-2 gap-3 pt-1 border-t border-yellow-500/20">
             <div>
-              <div class="text-[10px] font-semibold text-slate-400">Today's 5% Salary</div>
-              <div class="text-[9px] text-slate-500 font-mono">Today's Sales × 5%</div>
+              <div class="text-[10px] font-semibold text-slate-400">Today's Commission</div>
+              <div class="text-[9px] text-slate-500 font-mono">Per-item rate x Qty</div>
               <div id="dash-today-salary" class="text-base font-black text-yellow-400 mt-0.5 font-mono">LKR 0.00</div>
             </div>
 
@@ -387,6 +387,20 @@
               <div class="text-[9px] text-slate-400 font-mono">Dawasa gane ekathu wuna</div>
               <div id="dash-cumulative-salary" class="text-lg font-black text-emerald-400 mt-0.5 font-mono tracking-tight">LKR 0.00</div>
             </div>
+          </div>
+        </div>
+
+        <!-- Today's Items Sold Section -->
+        <div class="bg-surface-850 rounded-2xl border border-slate-800 overflow-hidden">
+          <div class="p-3 border-b border-slate-800 flex items-center justify-between">
+            <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+              <i data-lucide="package-open" class="w-4 h-4 text-emerald-400"></i>
+              <span>Dawase Vikunu Items</span>
+            </h4>
+            <span id="today-items-count-pill" class="text-[10px] bg-surface-800 text-slate-400 px-2 py-0.5 rounded-full border border-slate-700">0 types</span>
+          </div>
+          <div id="today-items-sold-list" class="divide-y divide-slate-800/60 max-h-48 overflow-y-auto">
+            <!-- Populated dynamically -->
           </div>
         </div>
 
@@ -434,10 +448,11 @@
           </div>
 
           <div class="bg-surface-850 border border-yellow-500/20 p-3 rounded-2xl">
-            <div class="text-[10px] text-yellow-400 uppercase font-semibold">5% Salary Earned</div>
+            <div class="text-[10px] text-yellow-400 uppercase font-semibold">Commission Earned</div>
             <div id="rep-total-salary" class="text-base font-black text-yellow-400 font-mono mt-0.5">LKR 0.00</div>
             <div class="text-[10px] text-slate-500 mt-1">Period Commission</div>
           </div>
+
 
           <div class="bg-surface-850 border border-slate-800 p-3 rounded-2xl">
             <div class="text-[10px] text-purple-400 uppercase font-semibold">Free Issues Given</div>
@@ -918,6 +933,20 @@
             <option value="General">General</option>
           </select>
         </div>
+
+        <!-- Commission % Per Product -->
+        <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl">
+          <label class="block text-yellow-300 mb-1 font-bold flex items-center gap-1.5">
+            <i data-lucide="percent" class="w-3.5 h-3.5"></i>
+            Commission % (Salary Rate) *
+          </label>
+          <div class="flex items-center gap-2">
+            <input type="number" step="0.1" min="0" max="100" id="master-input-commission" placeholder="5" value="5"
+              class="w-full px-3 py-2.5 bg-surface-850 border border-yellow-500/40 rounded-xl text-yellow-300 font-mono font-bold focus:outline-none focus:border-yellow-400" />
+            <span class="text-yellow-400 font-black text-lg">%</span>
+          </div>
+          <p class="text-[10px] text-slate-400 mt-1">Meka item eka vikunu kalawata commission wena %. (Default: 5%)</p>
+        </div>
       </div>
 
       <div class="flex gap-2 pt-2">
@@ -985,91 +1014,83 @@
   <!-- HIDDEN PDF REPORT TEMPLATE FOR HTML2PDF                                   -->
   <!-- ========================================================================= -->
   <div id="pdf-render-target">
-    <div id="printable-report" style="font-family: Arial, sans-serif; color: #111827; background: #ffffff; padding: 24px; max-width: 800px; margin: 0 auto; line-height: 1.4;">
-      
-      <!-- Report Header -->
-      <div style="border-bottom: 2px solid #10b981; padding-bottom: 12px; margin-bottom: 16px; display: flex; justify-content: space-between; align-items: flex-end;">
-        <div>
-          <h1 id="pdf-shop-name" style="font-size: 22px; font-weight: 800; color: #047857; margin: 0;">MOB POS SALES REPORT</h1>
-          <p id="pdf-rep-name" style="font-size: 11px; color: #4b5563; margin: 2px 0 0 0;">Sales Rep: Sales Agent</p>
-          <p id="pdf-period-text" style="font-size: 12px; font-weight: 600; color: #1f2937; margin: 4px 0 0 0;">Period: Weekly</p>
-        </div>
-        <div style="text-align: right;">
-          <div style="display: inline-block; background: #ecfdf5; border: 1px solid #34d399; color: #065f46; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 4px; margin-bottom: 4px;">OFFICIAL REPORT</div>
-          <div id="pdf-gen-date" style="font-size: 10px; color: #6b7280;">Generated: 2026-09-26 18:00:00</div>
+    <div id="printable-report" style="font-family: 'Segoe UI', Arial, sans-serif; color: #1e293b; background: #ffffff; padding: 28px 32px; max-width: 800px; margin: 0 auto; line-height: 1.5;">
+
+      <!-- Report Header with gradient bar -->
+      <div style="background: linear-gradient(135deg, #064e3b 0%, #047857 50%, #10b981 100%); border-radius: 12px; padding: 20px 24px; margin-bottom: 20px; color: white;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h1 id="pdf-shop-name" style="font-size: 22px; font-weight: 800; margin: 0; letter-spacing: -0.5px;">MOB POS SALES REPORT</h1>
+            <p id="pdf-rep-name" style="font-size: 11px; margin: 4px 0 0 0; opacity: 0.85;">Sales Representative: Sales Agent</p>
+            <p id="pdf-period-text" style="font-size: 13px; font-weight: 700; margin: 4px 0 0 0; opacity: 0.95;">Period: Weekly</p>
+          </div>
+          <div style="text-align: right;">
+            <div style="background: rgba(255,255,255,0.2); border-radius: 8px; padding: 6px 12px; display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px;">📋 OFFICIAL REPORT</div>
+            <div id="pdf-gen-date" style="font-size: 10px; margin-top: 6px; opacity: 0.8;">Generated: —</div>
+          </div>
         </div>
       </div>
 
       <!-- Executive KPI Summary Cards -->
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 20px;">
-        <div style="background: #f0fdf4; border: 1px solid #bbf7d0; padding: 10px; border-radius: 6px;">
-          <div style="font-size: 9px; font-weight: 700; color: #166534; text-transform: uppercase;">Total Sales</div>
-          <div id="pdf-kpi-sales" style="font-size: 13px; font-weight: 800; color: #15803d; margin-top: 4px;">LKR 0.00</div>
+      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 22px;">
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; padding: 12px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 9px; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;">Total Sales</div>
+          <div id="pdf-kpi-sales" style="font-size: 12px; font-weight: 800; color: #15803d; margin-top: 5px;">LKR 0.00</div>
         </div>
-        <div style="background: #fefce8; border: 1px solid #fef08a; padding: 10px; border-radius: 6px;">
-          <div style="font-size: 9px; font-weight: 700; color: #854d0e; text-transform: uppercase;">5% Salary (Comm.)</div>
-          <div id="pdf-kpi-salary" style="font-size: 13px; font-weight: 800; color: #a16207; margin-top: 4px;">LKR 0.00</div>
+        <div style="background: #fefce8; border: 1.5px solid #fde047; padding: 12px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 9px; font-weight: 700; color: #854d0e; text-transform: uppercase; letter-spacing: 0.5px;">Commission</div>
+          <div id="pdf-kpi-salary" style="font-size: 12px; font-weight: 800; color: #a16207; margin-top: 5px;">LKR 0.00</div>
         </div>
-        <div style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 10px; border-radius: 6px;">
-          <div style="font-size: 9px; font-weight: 700; color: #1e40af; text-transform: uppercase;">Total Bills</div>
-          <div id="pdf-kpi-bills" style="font-size: 13px; font-weight: 800; color: #1d4ed8; margin-top: 4px;">0</div>
+        <div style="background: #eff6ff; border: 1.5px solid #93c5fd; padding: 12px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 9px; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px;">Bills</div>
+          <div id="pdf-kpi-bills" style="font-size: 12px; font-weight: 800; color: #1d4ed8; margin-top: 5px;">0</div>
         </div>
-        <div style="background: #faf5ff; border: 1px solid #e9d5ff; padding: 10px; border-radius: 6px;">
-          <div style="font-size: 9px; font-weight: 700; color: #6b21a8; text-transform: uppercase;">Free Issues</div>
-          <div id="pdf-kpi-free" style="font-size: 13px; font-weight: 800; color: #7e22ce; margin-top: 4px;">0 Pkts</div>
+        <div style="background: #faf5ff; border: 1.5px solid #d8b4fe; padding: 12px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 9px; font-weight: 700; color: #6b21a8; text-transform: uppercase; letter-spacing: 0.5px;">Free Issues</div>
+          <div id="pdf-kpi-free" style="font-size: 12px; font-weight: 800; color: #7e22ce; margin-top: 5px;">0 Pkts</div>
         </div>
-        <div style="background: #fff7ed; border: 1px solid #fed7aa; padding: 10px; border-radius: 6px;">
-          <div style="font-size: 9px; font-weight: 700; color: #9a3412; text-transform: uppercase;">Total Returns</div>
-          <div id="pdf-kpi-returns" style="font-size: 13px; font-weight: 800; color: #c2410c; margin-top: 4px;">0 Pkts</div>
+        <div style="background: #fff7ed; border: 1.5px solid #fdba74; padding: 12px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 9px; font-weight: 700; color: #9a3412; text-transform: uppercase; letter-spacing: 0.5px;">Returns</div>
+          <div id="pdf-kpi-returns" style="font-size: 12px; font-weight: 800; color: #c2410c; margin-top: 5px;">0 Pkts</div>
         </div>
       </div>
 
       <!-- Itemized Table -->
-      <h3 style="font-size: 12px; font-weight: 700; color: #374151; margin: 0 0 6px 0; text-transform: uppercase;">1. Item-Wise Sales Summary</h3>
-      <table style="width: 100%; border-collapse: collapse; font-size: 10px; margin-bottom: 20px;">
-        <thead>
-          <tr style="background: #f3f4f6; border-top: 1px solid #d1d5db; border-bottom: 1px solid #d1d5db;">
-            <th style="padding: 6px 8px; text-align: left;">Item Name</th>
-            <th style="padding: 6px 8px; text-align: right;">Unit Price (LKR)</th>
-            <th style="padding: 6px 8px; text-align: center;">Qty Sold</th>
-            <th style="padding: 6px 8px; text-align: center;">Free Issues</th>
-            <th style="padding: 6px 8px; text-align: center;">Returns</th>
-            <th style="padding: 6px 8px; text-align: right;">Total Sales (LKR)</th>
-          </tr>
-        </thead>
-        <tbody id="pdf-items-tbody">
-          <!-- Populated dynamically -->
-        </tbody>
-      </table>
+      <div style="margin-bottom: 24px;">
+        <h3 style="font-size: 11px; font-weight: 700; color: #047857; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.8px; border-left: 3px solid #10b981; padding-left: 8px;">Item-Wise Sales Summary</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+          <thead>
+            <tr style="background: #f8fafc; border-top: 2px solid #e2e8f0; border-bottom: 2px solid #e2e8f0;">
+              <th style="padding: 8px 10px; text-align: left; font-weight: 700; color: #374151;">Item Name</th>
+              <th style="padding: 8px 8px; text-align: right; font-weight: 700; color: #374151;">Unit Price</th>
+              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #374151;">Comm %</th>
+              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #374151;">Qty Sold</th>
+              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #7e22ce;">Free</th>
+              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #c2410c;">Ret</th>
+              <th style="padding: 8px 10px; text-align: right; font-weight: 700; color: #374151;">Sales (LKR)</th>
+              <th style="padding: 8px 10px; text-align: right; font-weight: 700; color: #a16207;">Comm (LKR)</th>
+            </tr>
+          </thead>
+          <tbody id="pdf-items-tbody">
+            <!-- Populated dynamically -->
+          </tbody>
+        </table>
+      </div>
 
-      <!-- Transactions List -->
-      <h3 style="font-size: 12px; font-weight: 700; color: #374151; margin: 0 0 6px 0; text-transform: uppercase;">2. Detailed Transactions Log</h3>
-      <table style="width: 100%; border-collapse: collapse; font-size: 9px; margin-bottom: 24px;">
-        <thead>
-          <tr style="background: #f3f4f6; border-top: 1px solid #d1d5db; border-bottom: 1px solid #d1d5db;">
-            <th style="padding: 5px 6px; text-align: left;">Bill No</th>
-            <th style="padding: 5px 6px; text-align: left;">Timestamp</th>
-            <th style="padding: 5px 6px; text-align: left;">Items Summary</th>
-            <th style="padding: 5px 6px; text-align: center;">Free Pkts</th>
-            <th style="padding: 5px 6px; text-align: center;">Returns</th>
-            <th style="padding: 5px 6px; text-align: right;">Amount (LKR)</th>
-            <th style="padding: 5px 6px; text-align: right;">5% Comm (LKR)</th>
-          </tr>
-        </thead>
-        <tbody id="pdf-trans-tbody">
-          <!-- Populated dynamically -->
-        </tbody>
-      </table>
 
       <!-- Signatures Footer -->
-      <div style="border-top: 1px dashed #9ca3af; padding-top: 24px; margin-top: 30px; display: flex; justify-content: space-between; font-size: 10px; color: #4b5563;">
-        <div style="text-align: center; width: 180px;">
-          <div style="border-bottom: 1px solid #9ca3af; height: 32px; margin-bottom: 4px;"></div>
-          <span>Sales Representative Signature</span>
+      <div style="border-top: 1.5px dashed #94a3b8; padding-top: 20px; margin-top: 20px; display: flex; justify-content: space-between; align-items: flex-end; font-size: 10px; color: #6b7280;">
+        <div style="text-align: center; width: 200px;">
+          <div style="border-bottom: 1px solid #94a3b8; height: 36px; margin-bottom: 4px;"></div>
+          <span style="font-weight: 600;">Sales Representative Signature</span>
         </div>
-        <div style="text-align: center; width: 180px;">
-          <div style="border-bottom: 1px solid #9ca3af; height: 32px; margin-bottom: 4px;"></div>
-          <span>Supervisor / Manager Approval</span>
+        <div style="text-align: center; font-size: 9px; color: #9ca3af;">
+          <div>📱 MOB POS — Offline Sales Tracker</div>
+          <div id="pdf-footer-date" style="margin-top: 2px;"></div>
+        </div>
+        <div style="text-align: center; width: 200px;">
+          <div style="border-bottom: 1px solid #94a3b8; height: 36px; margin-bottom: 4px;"></div>
+          <span style="font-weight: 600;">Supervisor / Manager Approval</span>
         </div>
       </div>
 
@@ -1090,27 +1111,40 @@
     const db = new Dexie("MobilePOSDB");
 
     db.version(1).stores({
-      pin: 'id', // Stores user PIN configuration { id: 1, pinCode: '123' }
-      items: '++id, name, retailerPrice, category', // Master Item List
-      sales: '++id, billNo, timestamp, date, yearMonth, totalSales, freeIssuesCount, returnCount, returnTotalValue, salaryEarned, itemsJson', // Transactions
-      dailySummaries: 'date, totalSales, totalBills, totalFreeIssues, totalReturns, returnTotalValue, salaryEarned' // Aggregated Daily Stats
+      pin: 'id',
+      items: '++id, name, retailerPrice, category',
+      sales: '++id, billNo, timestamp, date, yearMonth, totalSales, freeIssuesCount, returnCount, returnTotalValue, salaryEarned, itemsJson',
+      dailySummaries: 'date, totalSales, totalBills, totalFreeIssues, totalReturns, returnTotalValue, salaryEarned'
+    });
+
+    // Version 2: add commissionPct to items for per-product commission rates
+    db.version(2).stores({
+      pin: 'id',
+      items: '++id, name, retailerPrice, category, commissionPct',
+      sales: '++id, billNo, timestamp, date, yearMonth, totalSales, freeIssuesCount, returnCount, returnTotalValue, salaryEarned, itemsJson',
+      dailySummaries: 'date, totalSales, totalBills, totalFreeIssues, totalReturns, returnTotalValue, salaryEarned'
+    }).upgrade(tx => {
+      return tx.table('items').toCollection().modify(item => {
+        if (item.commissionPct === undefined) item.commissionPct = 5;
+      });
     });
 
     // Default Seed Items
     const DEFAULT_ITEMS = [
-      { name: "Munchee Super Cream Crackers 500g", retailerPrice: 460.00, category: "Biscuits" },
-      { name: "Maliban Gold Marie 300g", retailerPrice: 280.00, category: "Biscuits" },
-      { name: "Munchee Lemon Puff 200g", retailerPrice: 240.00, category: "Biscuits" },
-      { name: "Anchor Milk Powder 400g", retailerPrice: 1150.00, category: "Groceries" },
-      { name: "Highland Full Cream Milk Powder 400g", retailerPrice: 1050.00, category: "Groceries" },
-      { name: "Watawala Tea Kahata 200g", retailerPrice: 380.00, category: "Groceries" },
-      { name: "Sunlight Lemon Soap 115g", retailerPrice: 140.00, category: "Household" },
-      { name: "Prima KottuMee Hot & Spicy", retailerPrice: 180.00, category: "Groceries" },
-      { name: "Coca-Cola 400ml Pet", retailerPrice: 150.00, category: "Beverages" },
-      { name: "Elephant House Ginger Beer 400ml", retailerPrice: 160.00, category: "Beverages" },
-      { name: "Harischandra Coffee 100g", retailerPrice: 320.00, category: "Groceries" },
-      { name: "Clogard Toothpaste 120g", retailerPrice: 260.00, category: "Household" }
+      { name: "Munchee Super Cream Crackers 500g", retailerPrice: 460.00, category: "Biscuits", commissionPct: 5 },
+      { name: "Maliban Gold Marie 300g", retailerPrice: 280.00, category: "Biscuits", commissionPct: 5 },
+      { name: "Munchee Lemon Puff 200g", retailerPrice: 240.00, category: "Biscuits", commissionPct: 5 },
+      { name: "Anchor Milk Powder 400g", retailerPrice: 1150.00, category: "Groceries", commissionPct: 5 },
+      { name: "Highland Full Cream Milk Powder 400g", retailerPrice: 1050.00, category: "Groceries", commissionPct: 5 },
+      { name: "Watawala Tea Kahata 200g", retailerPrice: 380.00, category: "Groceries", commissionPct: 5 },
+      { name: "Sunlight Lemon Soap 115g", retailerPrice: 140.00, category: "Household", commissionPct: 5 },
+      { name: "Prima KottuMee Hot & Spicy", retailerPrice: 180.00, category: "Groceries", commissionPct: 5 },
+      { name: "Coca-Cola 400ml Pet", retailerPrice: 150.00, category: "Beverages", commissionPct: 5 },
+      { name: "Elephant House Ginger Beer 400ml", retailerPrice: 160.00, category: "Beverages", commissionPct: 5 },
+      { name: "Harischandra Coffee 100g", retailerPrice: 320.00, category: "Groceries", commissionPct: 5 },
+      { name: "Clogard Toothpaste 120g", retailerPrice: 260.00, category: "Household", commissionPct: 5 }
     ];
+
 
     // --- 2. State Management ---
     const AppState = {
@@ -1236,8 +1270,17 @@
       if (itemCount === 0) {
         await db.items.bulkAdd(DEFAULT_ITEMS);
         console.log('[DB] Pre-seeded default sample items');
+      } else {
+        // Ensure existing items have commissionPct defined
+        const allItems = await db.items.toArray();
+        for (const it of allItems) {
+          if (it.commissionPct === undefined || it.commissionPct === null) {
+            await db.items.update(it.id, { commissionPct: 5 });
+          }
+        }
       }
     }
+
 
     function startLiveClock() {
       const updateClock = () => {
@@ -1535,11 +1578,12 @@
       if (!AppState.modalItem) return;
       const qty = parseInt(document.getElementById('input-item-qty').value, 10) || 0;
       const price = Number(AppState.modalItem.retailerPrice) || 0;
+      const commPct = Number(AppState.modalItem.commissionPct ?? 5);
       const lineTotal = qty * price;
-      const commission5Pct = lineTotal * 0.05;
+      const commissionEarned = lineTotal * (commPct / 100);
 
       document.getElementById('modal-line-total').innerText = `LKR ${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-      document.getElementById('modal-line-comm').innerText = `LKR ${commission5Pct.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('modal-line-comm').innerText = `LKR ${commissionEarned.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${commPct}%)`;
     }
 
     function commitItemToBill() {
@@ -1549,6 +1593,7 @@
       const freeIssues = parseInt(document.getElementById('input-item-free').value, 10) || 0;
       const returnQty = parseInt(document.getElementById('input-item-return').value, 10) || 0;
       const price = Number(AppState.modalItem.retailerPrice) || 0;
+      const commPct = Number(AppState.modalItem.commissionPct ?? 5);
 
       if (qty === 0 && freeIssues === 0 && returnQty === 0) {
         // If all zero, remove item if present
@@ -1556,17 +1601,20 @@
       } else {
         const lineTotal = qty * price;
         const returnLineVal = returnQty * price;
+        const lineCommission = lineTotal * (commPct / 100);
 
         const existingIndex = AppState.activeBill.items.findIndex(i => i.id === AppState.modalItem.id);
         const itemPayload = {
           id: AppState.modalItem.id,
           name: AppState.modalItem.name,
           retailerPrice: price,
+          commissionPct: commPct,
           qty: qty,
           freeIssues: freeIssues,
           returnQty: returnQty,
           lineTotal: lineTotal,
-          returnLineVal: returnLineVal
+          returnLineVal: returnLineVal,
+          lineCommission: lineCommission
         };
 
         if (existingIndex >= 0) {
@@ -1575,6 +1623,7 @@
           AppState.activeBill.items.push(itemPayload);
         }
       }
+
 
       closeItemEntryModal();
       renderPOSItemsGrid();
@@ -1704,7 +1753,9 @@
       const totalFree = AppState.activeBill.items.reduce((sum, item) => sum + item.freeIssues, 0);
       const totalReturn = AppState.activeBill.items.reduce((sum, item) => sum + item.returnQty, 0);
       const totalReturnVal = AppState.activeBill.items.reduce((sum, item) => sum + (item.returnLineVal || 0), 0);
-      const salaryEarned = totalSales * 0.05; // 5% Commission calculation
+      // Per-item commission calculation (each item uses its own commission %)
+      const salaryEarned = AppState.activeBill.items.reduce((sum, item) => sum + (item.lineCommission || (item.lineTotal * ((item.commissionPct ?? 5) / 100))), 0);
+
 
       // Generate Bill Number: BILL-YYYYMMDD-COUNT
       const todaySalesCount = await db.sales.where('date').equals(dateStr).count();
@@ -1770,18 +1821,20 @@
     }
 
 
-    // --- 9. Daily Dashboard & 5% Cumulative Salary Accumulator ---
+    // --- 9. Daily Dashboard & Commission Salary Accumulator ---
     async function refreshDashboard() {
       const now = new Date();
       const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
 
-      // 1. Fetch Today's Aggregates
+      // 1. Fetch Today's Bills (for accurate salary from per-item commission)
+      const todayBillsList = await db.sales.where('date').equals(todayStr).reverse().toArray();
       const todaySummary = await db.dailySummaries.get(todayStr);
       const todaySales = todaySummary ? todaySummary.totalSales : 0;
       const todayBills = todaySummary ? todaySummary.totalBills : 0;
       const todayFree = todaySummary ? todaySummary.totalFreeIssues : 0;
       const todayReturns = todaySummary ? todaySummary.totalReturns : 0;
-      const todaySalary = todaySales * 0.05;
+      // Use actual salaryEarned stored in summary (per-item commission)
+      const todaySalary = todaySummary ? (todaySummary.salaryEarned || 0) : 0;
 
       // Update Header quick stat
       document.getElementById('header-today-sales').innerText = `LKR ${todaySales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -1792,17 +1845,66 @@
       document.getElementById('dash-free-count').innerHTML = `${todayFree} <span class="text-xs font-medium text-slate-400">Pkts</span>`;
       document.getElementById('dash-return-count').innerHTML = `${todayReturns} <span class="text-xs font-medium text-slate-400">Pkts</span>`;
 
-      // 2. Today's 5% Salary
+      // 2. Today's Commission Salary (actual per-item rate)
       document.getElementById('dash-today-salary').innerText = `LKR ${todaySalary.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
       // 3. CUMULATIVE SALARY ACCUMULATOR ACROSS ALL RECORDED DAYS
       const allDailySummaries = await db.dailySummaries.toArray();
-      const cumulativeSalaryTotal = allDailySummaries.reduce((sum, day) => sum + (day.salaryEarned || (day.totalSales * 0.05)), 0);
+      const cumulativeSalaryTotal = allDailySummaries.reduce((sum, day) => sum + (day.salaryEarned || 0), 0);
       document.getElementById('dash-cumulative-salary').innerText = `LKR ${cumulativeSalaryTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-      // 4. Render Today's Saved Bills List
-      const todayBillsList = await db.sales.where('date').equals(todayStr).reverse().toArray();
+      // 4. Render Today's Items Sold
+      renderTodayItemsSold(todayBillsList);
+
+      // 5. Render Today's Saved Bills List
       renderTodayBillsList(todayBillsList);
+    }
+
+    function renderTodayItemsSold(bills) {
+      const container = document.getElementById('today-items-sold-list');
+      const countPill = document.getElementById('today-items-count-pill');
+      if (!container) return;
+
+      // Aggregate items sold today across all bills
+      const itemMap = {};
+      bills.forEach(bill => {
+        const items = JSON.parse(bill.itemsJson || '[]');
+        items.forEach(i => {
+          if (!itemMap[i.id]) {
+            itemMap[i.id] = { name: i.name, qty: 0, freeIssues: 0, returnQty: 0, totalSales: 0 };
+          }
+          itemMap[i.id].qty += (i.qty || 0);
+          itemMap[i.id].freeIssues += (i.freeIssues || 0);
+          itemMap[i.id].returnQty += (i.returnQty || 0);
+          itemMap[i.id].totalSales += (i.lineTotal || 0);
+        });
+      });
+
+      const itemArr = Object.values(itemMap);
+      countPill.innerText = `${itemArr.length} types`;
+      container.innerHTML = '';
+
+      if (itemArr.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No items sold today yet</p>`;
+        return;
+      }
+
+      itemArr.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'px-3 py-2 flex items-center justify-between';
+        row.innerHTML = `
+          <div class="flex-1 min-w-0 pr-2">
+            <h5 class="text-[11px] font-bold text-white truncate">${item.name}</h5>
+            <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
+              <span class="text-emerald-300">Sold: <strong>${item.qty}</strong></span>
+              ${item.freeIssues > 0 ? `<span class="text-purple-400">Free: <strong>${item.freeIssues}</strong></span>` : ''}
+              ${item.returnQty > 0 ? `<span class="text-amber-400">Ret: <strong>${item.returnQty}</strong></span>` : ''}
+            </div>
+          </div>
+          <div class="text-xs font-black text-emerald-400 font-mono shrink-0">LKR ${item.totalSales.toFixed(2)}</div>
+        `;
+        container.appendChild(row);
+      });
     }
 
     function renderTodayBillsList(bills) {
@@ -1830,12 +1932,17 @@
         card.className = 'bg-surface-850 p-3 rounded-2xl border border-slate-800 hover:border-slate-700 transition shadow-sm space-y-2';
         card.innerHTML = `
           <div class="flex items-center justify-between">
-            <div class="flex items-center gap-2">
+            <div class="flex items-center gap-2 flex-1 min-w-0">
               <span class="text-xs font-black text-white font-mono">${bill.billNo}</span>
               <span class="text-[10px] text-slate-400 font-mono">${bill.timestamp.split(' ')[1] || ''}</span>
             </div>
-            <div class="text-xs font-black text-emerald-400 font-mono">
-              LKR ${Number(bill.totalSales).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+            <div class="flex items-center gap-2 shrink-0">
+              <div class="text-xs font-black text-emerald-400 font-mono">
+                LKR ${Number(bill.totalSales).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              </div>
+              <button onclick="deleteSavedBill(${bill.id})" class="touch-press w-7 h-7 rounded-lg bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 text-rose-400 flex items-center justify-center" title="Delete Bill">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
             </div>
           </div>
 
@@ -1847,7 +1954,7 @@
               ${bill.returnCount > 0 ? `<span class="text-amber-400 font-medium">Ret: ${bill.returnCount} Pkts</span>` : ''}
             </div>
             <div class="text-yellow-400 font-mono font-bold">
-              5% Comm: LKR ${(bill.salaryEarned || (bill.totalSales * 0.05)).toFixed(2)}
+              Comm: LKR ${(bill.salaryEarned || 0).toFixed(2)}
             </div>
           </div>
         `;
@@ -1855,6 +1962,43 @@
       });
       lucide.createIcons();
     }
+
+    /**
+     * DELETE A SAVED BILL AND RECALCULATE DAILY SUMMARY
+     */
+    async function deleteSavedBill(billId) {
+      if (!confirm('Delete this bill? This will recalculate today\'s totals.')) return;
+
+      const bill = await db.sales.get(billId);
+      if (!bill) return;
+
+      const dateStr = bill.date;
+
+      // Remove bill from sales
+      await db.sales.delete(billId);
+
+      // Recalculate dailySummaries from remaining bills for that date
+      const remainingBills = await db.sales.where('date').equals(dateStr).toArray();
+      if (remainingBills.length === 0) {
+        await db.dailySummaries.delete(dateStr);
+      } else {
+        const totalSales = remainingBills.reduce((s, b) => s + (b.totalSales || 0), 0);
+        const totalBills = remainingBills.length;
+        const totalFreeIssues = remainingBills.reduce((s, b) => s + (b.freeIssuesCount || 0), 0);
+        const totalReturns = remainingBills.reduce((s, b) => s + (b.returnCount || 0), 0);
+        const returnTotalValue = remainingBills.reduce((s, b) => s + (b.returnTotalValue || 0), 0);
+        const salaryEarned = remainingBills.reduce((s, b) => s + (b.salaryEarned || 0), 0);
+        await db.dailySummaries.put({ date: dateStr, totalSales, totalBills, totalFreeIssues, totalReturns, returnTotalValue, salaryEarned });
+      }
+
+      showToast(`Bill deleted & totals recalculated`, 'trash-2');
+      await refreshDashboard();
+      if (AppState.currentView === 'reports') {
+        await loadReportData();
+      }
+    }
+
+
 
 
     // --- 10. Reporting & PDF Export Module ---
@@ -1906,7 +2050,7 @@
       const totalFree = filteredBills.reduce((acc, b) => acc + (b.freeIssuesCount || 0), 0);
       const totalReturns = filteredBills.reduce((acc, b) => acc + (b.returnCount || 0), 0);
       const totalReturnsVal = filteredBills.reduce((acc, b) => acc + (b.returnTotalValue || 0), 0);
-      const totalSalary = totalSales * 0.05;
+      const totalSalary = filteredBills.reduce((acc, b) => acc + (b.salaryEarned || 0), 0);
 
       // Update KPI Cards
       document.getElementById('rep-total-sales').innerText = `LKR ${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -1925,6 +2069,7 @@
             itemMap[i.id] = {
               name: i.name,
               retailerPrice: i.retailerPrice,
+              commissionPct: (i.commissionPct ?? 5),
               totalQty: 0,
               totalFree: 0,
               totalReturn: 0,
@@ -1974,20 +2119,28 @@
           const itemText = items.map(i => `${i.name} (x${i.qty})`).join(', ');
 
           const itemDiv = document.createElement('div');
-          itemDiv.className = 'py-2 flex items-center justify-between text-xs';
+          itemDiv.className = 'py-2.5 flex items-center justify-between text-xs hover:bg-slate-800/30 px-2 rounded-xl transition';
           itemDiv.innerHTML = `
-            <div>
-              <div class="font-bold text-white font-mono">${bill.billNo}</div>
-              <div class="text-[10px] text-slate-500">${bill.timestamp}</div>
-              <div class="text-[10px] text-slate-400 line-clamp-1 max-w-[200px]">${itemText}</div>
+            <div class="flex-1 min-w-0 pr-2">
+              <div class="flex items-center gap-2">
+                <span class="font-bold text-white font-mono">${bill.billNo}</span>
+                <span class="text-[10px] text-slate-500">${bill.timestamp}</span>
+              </div>
+              <div class="text-[10px] text-slate-400 line-clamp-1 mt-0.5">${itemText}</div>
             </div>
-            <div class="text-right">
-              <div class="font-bold text-emerald-400 font-mono">LKR ${bill.totalSales.toFixed(2)}</div>
-              <div class="text-[10px] text-yellow-400 font-mono">5% Comm: LKR ${(bill.salaryEarned || bill.totalSales * 0.05).toFixed(2)}</div>
+            <div class="text-right flex items-center gap-2 shrink-0">
+              <div>
+                <div class="font-bold text-emerald-400 font-mono">LKR ${bill.totalSales.toFixed(2)}</div>
+                <div class="text-[10px] text-yellow-400 font-mono">Comm: LKR ${(bill.salaryEarned || 0).toFixed(2)}</div>
+              </div>
+              <button onclick="deleteSavedBill(${bill.id})" class="touch-press w-7 h-7 rounded-lg bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 text-rose-400 flex items-center justify-center" title="Delete Bill">
+                <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              </button>
             </div>
           `;
           transList.appendChild(itemDiv);
         });
+        lucide.createIcons();
       }
 
       // Save for PDF export
@@ -1996,6 +2149,7 @@
       AppState.lastPeriodLabel = periodLabel;
       AppState.lastTotals = { totalSales, totalBills, totalFree, totalReturns, totalSalary };
     }
+
 
     /**
      * GENERATE CLEAN, HIGH-RESOLUTION PDF REPORT
@@ -2025,46 +2179,34 @@
       document.getElementById('pdf-kpi-free').innerText = `${totals.totalFree} Pkts`;
       document.getElementById('pdf-kpi-returns').innerText = `${totals.totalReturns} Pkts`;
 
-      // Item Table
+      // Item Table - with commission % and total commission columns
       const pdfItemTbody = document.getElementById('pdf-items-tbody');
       pdfItemTbody.innerHTML = '';
       (AppState.lastItemBreakdown || []).forEach((item, idx) => {
-        const bg = idx % 2 === 0 ? '#ffffff' : '#f9fafb';
+        const bg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
+        const commPct = item.commissionPct ?? 5;
+        const totalComm = (item.totalSales * (commPct / 100));
         const row = `
-          <tr style="background: ${bg}; border-bottom: 1px solid #e5e7eb;">
-            <td style="padding: 5px 8px; font-weight: 600;">${item.name}</td>
-            <td style="padding: 5px 8px; text-align: right;">${item.retailerPrice.toFixed(2)}</td>
-            <td style="padding: 5px 8px; text-align: center; font-weight: 700;">${item.totalQty}</td>
-            <td style="padding: 5px 8px; text-align: center; color: #7e22ce;">${item.totalFree}</td>
-            <td style="padding: 5px 8px; text-align: center; color: #c2410c;">${item.totalReturn}</td>
-            <td style="padding: 5px 8px; text-align: right; font-weight: 700; color: #15803d;">${item.totalSales.toFixed(2)}</td>
+          <tr style="background: ${bg}; border-bottom: 1px solid #e2e8f0;">
+            <td style="padding: 6px 10px; font-weight: 600; color: #1e293b;">${item.name}</td>
+            <td style="padding: 6px 8px; text-align: right; color: #475569;">${item.retailerPrice.toFixed(2)}</td>
+            <td style="padding: 6px 6px; text-align: center; color: #a16207; font-weight: 700;">${commPct}%</td>
+            <td style="padding: 6px 6px; text-align: center; font-weight: 700; color: #1d4ed8;">${item.totalQty}</td>
+            <td style="padding: 6px 6px; text-align: center; color: #7e22ce;">${item.totalFree}</td>
+            <td style="padding: 6px 6px; text-align: center; color: #c2410c;">${item.totalReturn}</td>
+            <td style="padding: 6px 10px; text-align: right; font-weight: 700; color: #15803d;">${item.totalSales.toFixed(2)}</td>
+            <td style="padding: 6px 10px; text-align: right; font-weight: 700; color: #a16207;">${totalComm.toFixed(2)}</td>
           </tr>
         `;
         pdfItemTbody.innerHTML += row;
       });
 
-      // Transactions Table
-      const pdfTransTbody = document.getElementById('pdf-trans-tbody');
-      pdfTransTbody.innerHTML = '';
-      (AppState.lastFilteredBills || []).slice(0, 50).forEach((bill, idx) => {
-        const bg = idx % 2 === 0 ? '#ffffff' : '#f9fafb';
-        const items = JSON.parse(bill.itemsJson || '[]');
-        const summary = items.map(i => `${i.name} (${i.qty})`).join(', ');
-        const row = `
-          <tr style="background: ${bg}; border-bottom: 1px solid #e5e7eb;">
-            <td style="padding: 4px 6px; font-weight: 700;">${bill.billNo}</td>
-            <td style="padding: 4px 6px; color: #6b7280;">${bill.timestamp}</td>
-            <td style="padding: 4px 6px; max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${summary}</td>
-            <td style="padding: 4px 6px; text-align: center;">${bill.freeIssuesCount}</td>
-            <td style="padding: 4px 6px; text-align: center;">${bill.returnCount}</td>
-            <td style="padding: 4px 6px; text-align: right; font-weight: 700; color: #15803d;">${bill.totalSales.toFixed(2)}</td>
-            <td style="padding: 4px 6px; text-align: right; font-weight: 700; color: #a16207;">${(bill.salaryEarned || bill.totalSales * 0.05).toFixed(2)}</td>
-          </tr>
-        `;
-        pdfTransTbody.innerHTML += row;
-      });
+      // Set footer date
+      const footerDateEl = document.getElementById('pdf-footer-date');
+      if (footerDateEl) footerDateEl.innerText = `Generated on ${timestampStr}`;
 
       const element = document.getElementById('printable-report');
+
       const opt = {
         margin: [10, 10, 10, 10],
         filename: `POS_Report_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}.pdf`,
@@ -2098,12 +2240,15 @@
         const row = document.createElement('div');
         row.className = 'p-3 flex items-center justify-between hover:bg-slate-800/40 transition';
         row.innerHTML = `
-          <div>
+          <div class="flex-1 min-w-0 pr-2">
             <div class="text-[10px] text-slate-400 font-semibold uppercase">${item.category || 'General'}</div>
             <h5 class="text-xs font-bold text-white">${item.name}</h5>
-            <div class="text-xs font-black text-emerald-400 font-mono">LKR ${Number(item.retailerPrice).toFixed(2)}</div>
+            <div class="flex items-center gap-2 mt-0.5">
+              <div class="text-xs font-black text-emerald-400 font-mono">LKR ${Number(item.retailerPrice).toFixed(2)}</div>
+              <span class="text-[10px] font-bold px-1.5 py-0.5 bg-yellow-500/20 text-yellow-300 rounded-md border border-yellow-500/30">${(item.commissionPct ?? 5)}% Comm</span>
+            </div>
           </div>
-          <div class="flex items-center gap-2">
+          <div class="flex items-center gap-2 shrink-0">
             <button onclick="editMasterItem(${item.id})" class="p-2 rounded-lg bg-surface-800 hover:bg-slate-700 text-slate-300">
               <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
             </button>
@@ -2123,6 +2268,7 @@
       document.getElementById('master-input-name').value = '';
       document.getElementById('master-input-price').value = '';
       document.getElementById('master-input-category').value = 'Biscuits';
+      document.getElementById('master-input-commission').value = '5';
 
       document.getElementById('modal-master-item').classList.remove('hidden');
       document.getElementById('modal-master-item').classList.add('flex');
@@ -2137,6 +2283,7 @@
       document.getElementById('master-input-name').value = item.name;
       document.getElementById('master-input-price').value = item.retailerPrice;
       document.getElementById('master-input-category').value = item.category || 'General';
+      document.getElementById('master-input-commission').value = (item.commissionPct ?? 5);
 
       document.getElementById('modal-master-item').classList.remove('hidden');
       document.getElementById('modal-master-item').classList.add('flex');
@@ -2151,18 +2298,23 @@
       const name = document.getElementById('master-input-name').value.trim();
       const price = parseFloat(document.getElementById('master-input-price').value);
       const category = document.getElementById('master-input-category').value;
+      const commissionPct = parseFloat(document.getElementById('master-input-commission').value);
       const editId = document.getElementById('master-edit-id').value;
 
       if (!name || isNaN(price) || price <= 0) {
         showToast('Please enter valid item name and price', 'alert-circle');
         return;
       }
+      if (isNaN(commissionPct) || commissionPct < 0 || commissionPct > 100) {
+        showToast('Commission % must be between 0 and 100', 'alert-circle');
+        return;
+      }
 
       if (editId) {
-        await db.items.update(parseInt(editId, 10), { name, retailerPrice: price, category });
+        await db.items.update(parseInt(editId, 10), { name, retailerPrice: price, category, commissionPct });
         showToast('Item updated successfully', 'check-circle-2');
       } else {
-        await db.items.add({ name, retailerPrice: price, category });
+        await db.items.add({ name, retailerPrice: price, category, commissionPct });
         showToast('New item added', 'check-circle-2');
       }
 
@@ -2177,6 +2329,7 @@
         await loadMasterItems();
       }
     }
+
 
 
     // --- 12. Security PIN & Shop Settings ---
