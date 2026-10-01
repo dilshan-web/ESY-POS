@@ -317,13 +317,13 @@
 
         <!-- 4 Core Real-Time Metric Cards -->
         <div class="grid grid-cols-2 gap-2.5">
-          <!-- 1. Dawase Sale Eka -->
+          <!-- 1. Dawase Sale Eka (Net Sales) -->
           <div class="bg-gradient-to-br from-emerald-950/80 to-surface-850 border border-emerald-500/30 p-3.5 rounded-2xl relative overflow-hidden shadow-lg">
             <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center mb-2">
               <i data-lucide="banknote" class="w-4 h-4"></i>
             </div>
-            <div class="text-[11px] font-semibold text-emerald-300">Dawase Sale Eka</div>
-            <div class="text-[9px] text-slate-400">Today's Sales Revenue</div>
+            <div class="text-[11px] font-semibold text-emerald-300">Dawase Net Sale Eka</div>
+            <div id="dash-today-sales-sub" class="text-[9px] text-slate-400 truncate">Gross: 0.00 | Ret: -0.00</div>
             <div id="dash-today-sales" class="text-lg font-black text-emerald-400 mt-1 font-mono tracking-tight">LKR 0.00</div>
           </div>
 
@@ -353,7 +353,7 @@
               <i data-lucide="rotate-ccw" class="w-4 h-4"></i>
             </div>
             <div class="text-[11px] font-semibold text-amber-300">Return Apu Gana</div>
-            <div class="text-[9px] text-slate-400">Returned Packets</div>
+            <div id="dash-return-sub" class="text-[9px] text-slate-400 truncate">0 Exch | 0 Deduct</div>
             <div id="dash-return-count" class="text-lg font-black text-amber-400 mt-1 font-mono">0 <span class="text-xs font-medium text-slate-400">Pkts</span></div>
           </div>
         </div>
@@ -369,7 +369,7 @@
               </div>
               <div>
                 <h4 class="text-xs font-bold uppercase tracking-wider text-yellow-300">Commission Salary Accumulator</h4>
-                <p class="text-[10px] text-slate-300">Daily & Monthly Commission Tracker</p>
+                <p class="text-[10px] text-slate-300">Daily & Monthly Net Commission Tracker</p>
               </div>
             </div>
             <span id="dash-month-pill" class="text-[10px] font-bold px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300">This Month</span>
@@ -377,8 +377,8 @@
 
           <div class="grid grid-cols-2 gap-3 pt-1 border-t border-yellow-500/20">
             <div>
-              <div class="text-[10px] font-semibold text-slate-400">Today's Commission</div>
-              <div class="text-[9px] text-slate-500 font-mono">Dawase Commission</div>
+              <div class="text-[10px] font-semibold text-slate-400">Today's Net Commission</div>
+              <div class="text-[9px] text-slate-500 font-mono">Dawase Net Comm.</div>
               <div id="dash-today-salary" class="text-base font-black text-yellow-400 mt-0.5 font-mono">LKR 0.00</div>
             </div>
 
@@ -396,7 +396,7 @@
           <div class="p-3 border-b border-slate-800 flex items-center justify-between">
             <h4 class="text-xs font-bold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
               <i data-lucide="package-open" class="w-4 h-4 text-emerald-400"></i>
-              <span>Dawase Vikunu Items</span>
+              <span>Dawase Vikunu & Return Items</span>
             </h4>
             <span id="today-items-count-pill" class="text-[10px] bg-surface-800 text-slate-400 px-2 py-0.5 rounded-full border border-slate-700">0 types</span>
           </div>
@@ -443,15 +443,16 @@
         <!-- Filtered Period KPI Cards -->
         <div class="grid grid-cols-2 gap-2.5">
           <div class="bg-surface-850 border border-slate-800 p-3 rounded-2xl">
-            <div class="text-[10px] text-slate-400 uppercase font-semibold">Total Sales</div>
+            <div class="text-[10px] text-slate-400 uppercase font-semibold">Net Sales</div>
             <div id="rep-total-sales" class="text-base font-black text-emerald-400 font-mono mt-0.5">LKR 0.00</div>
+            <div id="rep-total-sales-sub" class="text-[9px] text-slate-500 mt-0.5 truncate">Gross: 0.00 | Ret: -0.00</div>
             <div id="rep-bill-count" class="text-[10px] text-slate-500 mt-1">0 Transactions</div>
           </div>
 
           <div class="bg-surface-850 border border-yellow-500/20 p-3 rounded-2xl">
             <div class="text-[10px] text-yellow-400 uppercase font-semibold">Commission Earned</div>
             <div id="rep-total-salary" class="text-base font-black text-yellow-400 font-mono mt-0.5">LKR 0.00</div>
-            <div class="text-[10px] text-slate-500 mt-1">Period Commission</div>
+            <div class="text-[10px] text-slate-500 mt-1">Net Period Commission</div>
           </div>
 
 
@@ -462,9 +463,9 @@
           </div>
 
           <div class="bg-surface-850 border border-slate-800 p-3 rounded-2xl">
-            <div class="text-[10px] text-amber-400 uppercase font-semibold">Total Returns</div>
+            <div class="text-[10px] text-amber-400 uppercase font-semibold">Total Returns & Exch</div>
             <div id="rep-total-returns" class="text-base font-black text-amber-400 font-mono mt-0.5">0 Pkts</div>
-            <div id="rep-total-returns-val" class="text-[10px] text-slate-500 mt-1">LKR 0.00 Val</div>
+            <div id="rep-total-returns-val" class="text-[10px] text-slate-500 mt-1 truncate">0 Exch | -LKR 0.00 Ded</div>
           </div>
         </div>
 
@@ -485,12 +486,14 @@
             <table class="w-full text-left text-xs">
               <thead class="bg-surface-900/80 text-[10px] text-slate-400 uppercase border-b border-slate-800">
                 <tr>
-                  <th class="p-2.5 font-semibold">Item</th>
-                  <th class="p-2.5 text-center font-semibold">Price</th>
-                  <th class="p-2.5 text-center font-semibold">Sold</th>
-                  <th class="p-2.5 text-center font-semibold">Free</th>
-                  <th class="p-2.5 text-center font-semibold">Ret</th>
-                  <th class="p-2.5 text-right font-semibold">Total</th>
+                  <th class="p-2 font-semibold">Item</th>
+                  <th class="p-2 text-center font-semibold">Price</th>
+                  <th class="p-2 text-center font-semibold">Sold</th>
+                  <th class="p-2 text-center font-semibold">Free</th>
+                  <th class="p-2 text-center font-semibold">Ret / Exch</th>
+                  <th class="p-2 text-right font-semibold">Gross</th>
+                  <th class="p-2 text-right font-semibold">Ret Ded</th>
+                  <th class="p-2 text-right font-semibold">Net Total</th>
                 </tr>
               </thead>
               <tbody id="rep-items-tbody" class="divide-y divide-slate-800/60 font-mono text-[11px]">
@@ -537,6 +540,49 @@
           </div>
           <div id="master-items-list" class="divide-y divide-slate-800/60 max-h-80 overflow-y-auto">
             <!-- Populated dynamically -->
+          </div>
+        </div>
+
+        <!-- Free Issue Schemes Management Card -->
+        <div class="bg-surface-850 p-3.5 rounded-2xl border border-purple-500/30 space-y-3">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-2">
+              <div class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center">
+                <i data-lucide="gift" class="w-4 h-4"></i>
+              </div>
+              <div>
+                <h4 class="text-xs font-bold uppercase text-purple-300">Free Issue Schemes (නොමිලේ දෙන ක්‍රම)</h4>
+                <p class="text-[10px] text-slate-400">Qty අනුව ස්වයංක්‍රීයව Free Issues ලැබීම (25/2, 50/5, 100/15...)</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="setting-auto-free-toggle" class="sr-only peer" onchange="toggleAutoFreeSetting(this.checked)" checked>
+                <div class="w-9 h-5 bg-surface-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-purple-600"></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Active Schemes Table -->
+          <div class="bg-surface-900/90 rounded-xl p-3 border border-slate-800 space-y-2">
+            <div class="flex items-center justify-between text-[11px] font-bold text-slate-400 border-b border-slate-800 pb-1.5">
+              <span>Buy Quantity (ගන්නා ගණන)</span>
+              <span>Free Issues (නොමිලේ ලැබෙන ගණන)</span>
+            </div>
+            <div id="settings-free-schemes-list" class="space-y-1.5 text-xs">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between gap-2 pt-1">
+            <button onclick="resetFreeSchemesToDefault()" class="touch-press px-3 py-2 bg-surface-800 hover:bg-slate-700 border border-slate-700 text-slate-300 font-bold rounded-xl text-xs flex items-center gap-1.5">
+              <i data-lucide="rotate-ccw" class="w-3.5 h-3.5 text-slate-400"></i>
+              <span>Reset Defaults</span>
+            </button>
+            <button onclick="openEditFreeSchemesModal()" class="touch-press px-3.5 py-2 bg-purple-600 hover:bg-purple-500 text-white font-bold rounded-xl text-xs flex items-center gap-1.5 shadow-md shadow-purple-950">
+              <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+              <span>Edit Free Tiers</span>
+            </button>
           </div>
         </div>
 
@@ -724,7 +770,10 @@
       <!-- Drawer Header -->
       <div class="p-4 border-b border-slate-800 flex items-center justify-between bg-surface-850">
         <div class="min-w-0 pr-2">
-          <div class="text-[10px] font-bold text-brand-400 uppercase tracking-wider">Add / Edit Item In Bill</div>
+          <div class="text-[10px] font-bold text-brand-400 uppercase tracking-wider flex items-center gap-1.5">
+            <span>Add / Edit Item In Bill</span>
+            <span id="modal-item-category-tag" class="text-[9px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-400">Groceries</span>
+          </div>
           <h3 id="modal-item-name" class="text-base font-black text-white truncate">Item Name</h3>
           <p id="modal-item-price-tag" class="text-xs font-mono text-emerald-400 font-bold">LKR 0.00</p>
         </div>
@@ -734,97 +783,250 @@
       </div>
 
       <!-- Drawer Body Inputs -->
-      <div class="p-4 space-y-4 overflow-y-auto no-scrollbar">
+      <div class="p-4 space-y-3.5 overflow-y-auto no-scrollbar">
 
         <!-- 1. Sold Quantity Input -->
-        <div class="bg-surface-850 p-3.5 rounded-2xl border border-slate-800 space-y-2">
+        <div class="bg-surface-850 p-3 rounded-2xl border border-slate-800 space-y-2">
           <div class="flex items-center justify-between">
             <label class="text-xs font-bold text-white flex items-center gap-1.5">
               <i data-lucide="shopping-cart" class="w-4 h-4 text-emerald-400"></i>
-              <span>Qty (Quantity Sold)</span>
+              <span>Qty (Quantity Sold / විකුණු ගණන)</span>
             </label>
-            <span class="text-[10px] text-slate-400">Main Sales Qty</span>
+            <button onclick="setQuickReturnOnly()" class="touch-press text-[10px] text-amber-400 hover:text-amber-300 font-bold flex items-center gap-1 bg-amber-500/10 px-2 py-0.5 rounded-lg border border-amber-500/30">
+              <i data-lucide="rotate-ccw" class="w-3 h-3 text-amber-400"></i>
+              <span>Return Only (Qty: 0)</span>
+            </button>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="adjustQty(-1)" class="touch-press w-12 h-12 rounded-xl bg-surface-800 hover:bg-slate-700 border border-slate-700 text-xl font-bold text-slate-200 flex items-center justify-center">-</button>
+            <button onclick="adjustQty(-1)" class="touch-press w-12 h-11 rounded-xl bg-surface-800 hover:bg-slate-700 border border-slate-700 text-xl font-bold text-slate-200 flex items-center justify-center">-</button>
             <input
               type="number"
               id="input-item-qty"
               value="1"
               min="0"
-              oninput="calcModalLineTotal()"
-              class="flex-1 h-12 text-center bg-surface-900 border border-slate-700 rounded-xl text-xl font-black text-white font-mono focus:outline-none focus:border-brand-500"
+              oninput="onModalQtyInput(true)"
+              class="flex-1 h-11 text-center bg-surface-900 border border-slate-700 rounded-xl text-xl font-black text-white font-mono focus:outline-none focus:border-brand-500"
             />
-            <button onclick="adjustQty(1)" class="touch-press w-12 h-12 rounded-xl bg-surface-800 hover:bg-slate-700 border border-slate-700 text-xl font-bold text-slate-200 flex items-center justify-center">+</button>
+            <button onclick="adjustQty(1)" class="touch-press w-12 h-11 rounded-xl bg-surface-800 hover:bg-slate-700 border border-slate-700 text-xl font-bold text-slate-200 flex items-center justify-center">+</button>
           </div>
 
-          <!-- Quick Steppers -->
-          <div class="grid grid-cols-4 gap-1.5 pt-1">
-            <button onclick="setDirectQty(1)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+1</button>
-            <button onclick="setDirectQty(5)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+5</button>
-            <button onclick="setDirectQty(10)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+10</button>
-            <button onclick="setDirectQty(20)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+20</button>
+          <!-- Quick Steppers: Row 1 (+1, +5, +10, +20) & Row 2 (+25, +50, +100, +200) -->
+          <div class="space-y-1.5 pt-0.5">
+            <div class="grid grid-cols-4 gap-1.5">
+              <button type="button" onclick="setDirectQty(1)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+1</button>
+              <button type="button" onclick="setDirectQty(5)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+5</button>
+              <button type="button" onclick="setDirectQty(10)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+10</button>
+              <button type="button" onclick="setDirectQty(20)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-slate-300 border border-slate-700 hover:bg-slate-700">+20</button>
+            </div>
+            <div class="grid grid-cols-4 gap-1.5">
+              <button type="button" onclick="setDirectQty(25)" class="py-1 rounded-lg bg-brand-950/40 text-[11px] font-bold text-brand-300 border border-brand-500/30 hover:bg-brand-900/50">+25</button>
+              <button type="button" onclick="setDirectQty(50)" class="py-1 rounded-lg bg-brand-950/40 text-[11px] font-bold text-brand-300 border border-brand-500/30 hover:bg-brand-900/50">+50</button>
+              <button type="button" onclick="setDirectQty(100)" class="py-1 rounded-lg bg-brand-950/40 text-[11px] font-bold text-brand-300 border border-brand-500/30 hover:bg-brand-900/50">+100</button>
+              <button type="button" onclick="setDirectQty(200)" class="py-1 rounded-lg bg-brand-950/40 text-[11px] font-bold text-brand-300 border border-brand-500/30 hover:bg-brand-900/50">+200</button>
+            </div>
           </div>
         </div>
 
-        <!-- 2. Free Issues Input Field -->
-        <div class="bg-surface-850 p-3.5 rounded-2xl border border-purple-500/20 space-y-2">
+        <!-- 2. Free Issues Input Field with Auto Scheme & Quick Shop Presets -->
+        <div class="bg-surface-850 p-3 rounded-2xl border border-purple-500/30 space-y-2">
           <div class="flex items-center justify-between">
             <label class="text-xs font-bold text-purple-300 flex items-center gap-1.5">
               <i data-lucide="gift" class="w-4 h-4 text-purple-400"></i>
-              <span>Free Issues (Pekat Gana)</span>
+              <span>Free Issues (නොමිලේ දුන් Pekat)</span>
             </label>
-            <span class="text-[10px] text-purple-400/80">Bonus/Free Items</span>
+            <div id="free-scheme-badge" class="text-[10px] text-purple-300 bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-500/40 font-bold flex items-center gap-1">
+              <i data-lucide="sparkles" class="w-3 h-3 text-purple-400"></i>
+              <span id="free-scheme-badge-text">Auto Scheme</span>
+            </div>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="adjustFree(-1)" class="touch-press w-11 h-11 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">-</button>
+            <button onclick="adjustFree(-1)" class="touch-press w-11 h-10 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">-</button>
             <input
               type="number"
               id="input-item-free"
               value="0"
               min="0"
-              oninput="calcModalLineTotal()"
-              class="flex-1 h-11 text-center bg-surface-900 border border-purple-500/30 rounded-xl text-lg font-bold text-purple-300 font-mono focus:outline-none focus:border-purple-500"
+              oninput="onManualFreeInput()"
+              class="flex-1 h-10 text-center bg-surface-900 border-2 border-purple-500/40 rounded-xl text-lg font-black text-purple-300 font-mono focus:outline-none focus:border-purple-400"
             />
-            <button onclick="adjustFree(1)" class="touch-press w-11 h-11 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">+</button>
+            <button onclick="adjustFree(1)" class="touch-press w-11 h-10 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">+</button>
+          </div>
+
+          <!-- Dynamic Quick Special Shop Variations / Preset Chips -->
+          <div id="quick-free-presets" class="flex flex-wrap items-center gap-1.5 pt-0.5">
+            <!-- Rendered dynamically -->
           </div>
         </div>
 
         <!-- 3. Return Qty Input Field -->
-        <div class="bg-surface-850 p-3.5 rounded-2xl border border-amber-500/20 space-y-2">
+        <div class="bg-surface-850 p-3 rounded-2xl border border-amber-500/30 space-y-2">
           <div class="flex items-center justify-between">
             <label class="text-xs font-bold text-amber-300 flex items-center gap-1.5">
               <i data-lucide="rotate-ccw" class="w-4 h-4 text-amber-400"></i>
-              <span>Return Qty (Apu Gana)</span>
+              <span>Return Qty (ආපසු ගත් Pekat Gana)</span>
             </label>
-            <span class="text-[10px] text-amber-400/80">Customer Return Packets</span>
+            <span class="text-[10px] text-amber-400/80 font-medium">Customer Returns</span>
           </div>
 
           <div class="flex items-center gap-2">
-            <button onclick="adjustReturn(-1)" class="touch-press w-11 h-11 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">-</button>
+            <button onclick="adjustReturn(-1)" class="touch-press w-11 h-10 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">-</button>
             <input
               type="number"
               id="input-item-return"
               value="0"
               min="0"
               oninput="calcModalLineTotal()"
-              class="flex-1 h-11 text-center bg-surface-900 border border-amber-500/30 rounded-xl text-lg font-bold text-amber-300 font-mono focus:outline-none focus:border-amber-500"
+              class="flex-1 h-10 text-center bg-surface-900 border border-amber-500/30 rounded-xl text-lg font-bold text-amber-300 font-mono focus:outline-none focus:border-amber-500"
             />
-            <button onclick="adjustReturn(1)" class="touch-press w-11 h-11 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">+</button>
+            <button onclick="adjustReturn(1)" class="touch-press w-11 h-10 rounded-xl bg-surface-800 border border-slate-700 text-lg font-bold text-slate-200 flex items-center justify-center">+</button>
+          </div>
+
+          <!-- Quick Return Steppers -->
+          <div class="grid grid-cols-4 gap-1.5 pt-0.5">
+            <button onclick="setDirectReturn(1)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-amber-300 border border-slate-700 hover:bg-slate-700">+1</button>
+            <button onclick="setDirectReturn(5)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-amber-300 border border-slate-700 hover:bg-slate-700">+5</button>
+            <button onclick="setDirectReturn(10)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-amber-300 border border-slate-700 hover:bg-slate-700">+10</button>
+            <button onclick="setDirectReturn(20)" class="py-1 rounded-lg bg-surface-800 text-[11px] font-semibold text-amber-300 border border-slate-700 hover:bg-slate-700">+20</button>
+          </div>
+        </div>
+
+        <!-- 4. EXPANDABLE RETURN HANDLING OPTIONS (Visible when Return Qty > 0) -->
+        <div id="return-options-container" class="hidden bg-gradient-to-b from-amber-950/40 to-surface-850 p-3.5 rounded-2xl border-2 border-amber-500/40 space-y-3 shadow-lg">
+          <div class="flex items-center justify-between pb-1.5 border-b border-amber-500/20">
+            <span class="text-[11px] font-black text-amber-300 uppercase tracking-wide flex items-center gap-1.5">
+              <i data-lucide="sliders-horizontal" class="w-4 h-4 text-amber-400"></i>
+              <span>Return Settings (ආපසු හැසිරවීම)</span>
+            </span>
+            <span class="text-[10px] text-amber-400/90 bg-amber-500/10 px-2 py-0.5 rounded-full border border-amber-500/30 font-semibold flex items-center gap-1">
+              <i data-lucide="edit-3" class="w-3 h-3 text-amber-400"></i>
+              <span>Configurable</span>
+            </span>
+          </div>
+
+          <!-- A. Return Action / Type: Deduct from Bill vs 1-to-1 Exchange -->
+          <div class="space-y-1.5">
+            <label class="block text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="arrow-left-right" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Return Action / ක්‍රමවේදය:</span>
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <!-- Deduct Button -->
+              <button
+                type="button"
+                id="btn-return-deduct"
+                onclick="setModalReturnType('deduct')"
+                class="touch-press p-2.5 rounded-xl bg-brand-600 border-2 border-brand-400 text-white flex flex-col items-center justify-center text-center transition shadow-md"
+              >
+                <div class="flex items-center gap-1.5 font-bold text-xs">
+                  <i data-lucide="minus-circle" class="w-4 h-4"></i>
+                  <span>බිලෙන් අඩු කරන්න</span>
+                </div>
+                <span class="text-[9px] text-emerald-200 mt-0.5">Deduct Bill & Comm.</span>
+              </button>
+
+              <!-- Exchange Button -->
+              <button
+                type="button"
+                id="btn-return-exchange"
+                onclick="setModalReturnType('exchange')"
+                class="touch-press p-2.5 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 hover:text-white flex flex-col items-center justify-center text-center transition"
+              >
+                <div class="flex items-center gap-1.5 font-bold text-xs">
+                  <i data-lucide="repeat" class="w-4 h-4"></i>
+                  <span>හුවමාරු (Exchange)</span>
+                </div>
+                <span class="text-[9px] text-slate-400 mt-0.5">1-to-1 Fresh Replacement</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- B. Return Reason: Expired/Damaged vs Unsold -->
+          <div class="space-y-1.5 pt-1">
+            <label class="block text-[11px] font-bold text-slate-300 flex items-center gap-1.5">
+              <i data-lucide="help-circle" class="w-3.5 h-3.5 text-amber-400"></i>
+              <span>Return Reason / හේතුව:</span>
+            </label>
+            <div class="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                id="btn-reason-expired"
+                onclick="setModalReturnReason('expired')"
+                class="touch-press py-2 px-2 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-300 text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-sm"
+              >
+                <i data-lucide="alert-triangle" class="w-3.5 h-3.5 text-rose-400"></i>
+                <span>Expired / Damage</span>
+              </button>
+              <button
+                type="button"
+                id="btn-reason-unsold"
+                onclick="setModalReturnReason('unsold')"
+                class="touch-press py-2 px-2 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 hover:text-slate-200 text-xs font-bold flex items-center justify-center gap-1.5 transition shadow-sm"
+              >
+                <i data-lucide="package-x" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>Unsold / නොවිකිණුන</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- C. Custom Return Unit Price (LKR) - WITH VISUAL PENCIL / EDIT ICON -->
+          <div class="pt-1.5 bg-surface-900/90 p-2.5 rounded-xl border border-amber-500/30 space-y-1.5">
+            <div class="flex items-center justify-between">
+              <label class="text-[11px] font-bold text-amber-300 flex items-center gap-1.5">
+                <i data-lucide="pencil" class="w-3.5 h-3.5 text-yellow-400"></i>
+                <span>Return Rate (LKR):</span>
+                <span class="text-[10px] text-slate-400 font-normal">(මිල වෙනස් කරන්න)</span>
+              </label>
+              <button type="button" onclick="resetReturnUnitPrice()" class="touch-press text-[10px] text-brand-400 hover:text-brand-300 font-bold flex items-center gap-1 bg-brand-500/10 px-2 py-0.5 rounded-md border border-brand-500/20">
+                <i data-lucide="rotate-ccw" class="w-3 h-3 text-brand-400"></i>
+                <span>Reset Price</span>
+              </button>
+            </div>
+            
+            <div class="relative flex items-center">
+              <div class="absolute left-3 flex items-center gap-1 pointer-events-none text-slate-400 font-mono font-bold text-xs">
+                <i data-lucide="coins" class="w-3.5 h-3.5 text-amber-400"></i>
+                <span>LKR</span>
+              </div>
+              <input
+                type="number"
+                step="0.01"
+                id="input-return-unit-price"
+                oninput="calcModalLineTotal()"
+                placeholder="0.00"
+                class="w-full pl-16 pr-9 py-2 bg-surface-950 border-2 border-amber-500/50 rounded-xl text-base font-black text-amber-300 font-mono focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 shadow-inner"
+              />
+              <div class="absolute right-3 pointer-events-none text-amber-400">
+                <i data-lucide="edit-3" class="w-4 h-4"></i>
+              </div>
+            </div>
+            <div class="flex items-start gap-1 text-[10px] text-slate-400 leading-tight">
+              <i data-lucide="info" class="w-3 h-3 text-amber-400 shrink-0 mt-0.5"></i>
+              <span>Item price 130 unath 115 ta return gannawanam methanata 115 danna.</span>
+            </div>
           </div>
         </div>
 
         <!-- Line Total & 5% Calculation Summary Box -->
-        <div class="bg-gradient-to-r from-surface-850 to-surface-800 p-3.5 rounded-2xl border border-slate-700 flex items-center justify-between">
-          <div>
-            <div class="text-[10px] text-slate-400 uppercase font-semibold">Line Total (Qty × Price)</div>
-            <div id="modal-line-total" class="text-base font-black text-emerald-400 font-mono">LKR 0.00</div>
+        <div class="bg-gradient-to-r from-surface-850 to-surface-800 p-3 rounded-2xl border border-slate-700 space-y-1.5">
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-semibold">Gross Sales (Qty × Price):</span>
+            <span id="modal-line-gross" class="font-bold text-slate-200 font-mono">LKR 0.00</span>
           </div>
-          <div class="text-right">
-            <div class="text-[10px] text-yellow-400 uppercase font-semibold">5% Commission</div>
-            <div id="modal-line-comm" class="text-xs font-black text-yellow-400 font-mono">LKR 0.00</div>
+          <div class="flex items-center justify-between text-xs">
+            <span class="text-slate-400 font-semibold">Return Value / Action:</span>
+            <span id="modal-line-deduct" class="font-bold text-slate-400 font-mono">LKR 0.00</span>
+          </div>
+          <div class="flex items-center justify-between pt-1.5 border-t border-slate-800">
+            <div>
+              <div class="text-[10px] text-slate-400 uppercase font-semibold">Net Line Total (ශුද්ධ එකතුව)</div>
+              <div id="modal-line-total" class="text-base font-black text-emerald-400 font-mono">LKR 0.00</div>
+            </div>
+            <div class="text-right">
+              <div class="text-[10px] text-yellow-400 uppercase font-semibold">Net Commission</div>
+              <div id="modal-line-comm" class="text-xs font-black text-yellow-400 font-mono">LKR 0.00</div>
+            </div>
           </div>
         </div>
 
@@ -869,18 +1071,34 @@
 
       <!-- Bill Totals Footer & Save Action -->
       <div class="p-4 border-t border-slate-800 bg-surface-850 space-y-3">
-        <div class="space-y-1.5 text-xs">
+        <div class="space-y-1 text-xs">
           <div class="flex justify-between text-slate-300">
-            <span>Total Free Issue Packets:</span>
+            <span>Gross Sales (මුළු අලෙවිය):</span>
+            <span id="bill-summary-gross" class="font-bold text-slate-200 font-mono">LKR 0.00</span>
+          </div>
+          <div class="flex justify-between text-rose-300">
+            <span>Return Deductions (ආපසු අඩු කිරීම්):</span>
+            <span id="bill-summary-return-deduct" class="font-bold text-rose-400 font-mono">- LKR 0.00</span>
+          </div>
+          <div class="flex justify-between text-blue-300">
+            <span>1-to-1 Exchanged Packets:</span>
+            <span id="bill-summary-exchange" class="font-bold text-blue-400 font-mono">0 Pkts (🔄)</span>
+          </div>
+          <div class="flex justify-between text-purple-300">
+            <span>Free Issue Packets:</span>
             <span id="bill-summary-free" class="font-bold text-purple-400 font-mono">0 Pkts</span>
           </div>
-          <div class="flex justify-between text-slate-300">
+          <div class="flex justify-between text-amber-300">
             <span>Total Returned Packets:</span>
             <span id="bill-summary-return" class="font-bold text-amber-400 font-mono">0 Pkts</span>
           </div>
-          <div class="flex justify-between text-sm font-black text-white pt-2 border-t border-slate-800">
-            <span>Bill Total Sales:</span>
-            <span id="bill-summary-total" class="text-emerald-400 font-mono">LKR 0.00</span>
+          <div class="flex justify-between text-yellow-300 pt-1 border-t border-slate-800">
+            <span>Estimated Commission:</span>
+            <span id="bill-summary-commission" class="font-bold text-yellow-400 font-mono">LKR 0.00</span>
+          </div>
+          <div class="flex justify-between text-sm font-black text-white pt-1.5 border-t border-slate-700">
+            <span>Net Bill Payable (ශුද්ධ එකතුව):</span>
+            <span id="bill-summary-total" class="text-emerald-400 font-mono text-base">LKR 0.00</span>
           </div>
         </div>
 
@@ -902,9 +1120,11 @@
   <!-- ========================================================================= -->
   <!-- MODAL 3: ADD / EDIT MASTER ITEM MODAL                                     -->
   <!-- ========================================================================= -->
-  <div id="modal-master-item" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
-    <div class="bg-surface-900 border border-slate-700/80 rounded-3xl w-full max-w-sm p-4 space-y-4 shadow-2xl animate-fade-in">
-      <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+  <div id="modal-master-item" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-3 sm:p-4">
+    <div class="bg-surface-900 border border-slate-700/80 rounded-3xl w-full max-w-sm max-h-[94vh] flex flex-col overflow-hidden shadow-2xl animate-fade-in">
+      
+      <!-- Modal Header -->
+      <div class="p-3.5 border-b border-slate-800 flex items-center justify-between bg-surface-850">
         <h3 id="master-item-modal-title" class="text-sm font-bold text-white">Add Master Item</h3>
         <button onclick="closeMasterItemModal()" class="w-7 h-7 rounded-full bg-surface-800 text-slate-400 hover:text-white flex items-center justify-center">
           <i data-lucide="x" class="w-4 h-4"></i>
@@ -913,47 +1133,112 @@
 
       <input type="hidden" id="master-edit-id" value="" />
 
-      <div class="space-y-3 text-xs">
+      <!-- Modal Body -->
+      <div class="p-4 space-y-3 overflow-y-auto no-scrollbar text-xs">
         <div>
           <label class="block text-slate-400 mb-1 font-semibold">Item Name *</label>
-          <input type="text" id="master-input-name" placeholder="e.g. Cream Crackers 500g" class="w-full px-3 py-2.5 bg-surface-850 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500" />
+          <input type="text" id="master-input-name" placeholder="e.g. Soya Meat 130g" class="w-full px-3 py-2 bg-surface-850 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500" />
         </div>
 
-        <div>
-          <label class="block text-slate-400 mb-1 font-semibold">Retailer Price (LKR) *</label>
-          <input type="number" step="0.01" id="master-input-price" placeholder="450.00" class="w-full px-3 py-2.5 bg-surface-850 border border-slate-700 rounded-xl text-white font-mono focus:outline-none focus:border-brand-500" />
-        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Retail Price (LKR) *</label>
+            <input type="number" step="0.01" id="master-input-price" placeholder="130.00" class="w-full px-3 py-2 bg-surface-850 border border-slate-700 rounded-xl text-white font-mono focus:outline-none focus:border-brand-500" />
+          </div>
 
-        <div>
-          <label class="block text-slate-400 mb-1 font-semibold">Category</label>
-          <select id="master-input-category" class="w-full px-3 py-2.5 bg-surface-850 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
-            <option value="Biscuits">Biscuits</option>
-            <option value="Groceries">Groceries</option>
-            <option value="Beverages">Beverages</option>
-            <option value="Household">Household</option>
-            <option value="General">General</option>
-          </select>
+          <div>
+            <label class="block text-slate-400 mb-1 font-semibold">Category</label>
+            <select id="master-input-category" class="w-full px-3 py-2 bg-surface-850 border border-slate-700 rounded-xl text-white focus:outline-none focus:border-brand-500">
+              <option value="Groceries">Groceries</option>
+              <option value="Biscuits">Biscuits</option>
+              <option value="Beverages">Beverages</option>
+              <option value="Household">Household</option>
+              <option value="General">General</option>
+            </select>
+          </div>
         </div>
 
         <!-- Commission % Per Product -->
-        <div class="bg-yellow-500/10 border border-yellow-500/30 p-3 rounded-xl">
-          <label class="block text-yellow-300 mb-1 font-bold flex items-center gap-1.5">
+        <div class="bg-yellow-500/10 border border-yellow-500/30 p-2.5 rounded-xl space-y-1">
+          <label class="block text-yellow-300 text-[11px] font-bold flex items-center gap-1.5">
             <i data-lucide="percent" class="w-3.5 h-3.5"></i>
-            Commission % (Salary Rate) *
+            <span>Commission Rate (Salary %)</span>
           </label>
           <div class="flex items-center gap-2">
             <input type="number" step="0.1" min="0" max="100" id="master-input-commission" placeholder="5" value="5"
-              class="w-full px-3 py-2.5 bg-surface-850 border border-yellow-500/40 rounded-xl text-yellow-300 font-mono font-bold focus:outline-none focus:border-yellow-400" />
-            <span class="text-yellow-400 font-black text-lg">%</span>
+              class="w-full px-3 py-1.5 bg-surface-850 border border-yellow-500/40 rounded-xl text-yellow-300 font-mono font-bold focus:outline-none focus:border-yellow-400 text-xs" />
+            <span class="text-yellow-400 font-black text-sm">%</span>
           </div>
-          <p class="text-[10px] text-slate-400 mt-1">Meka item eka vikunu kalawata commission wena %. (Default: 5%)</p>
         </div>
+
+        <!-- Item-Specific Free Issue Scheme Section -->
+        <div class="bg-purple-950/25 border border-purple-500/30 p-3 rounded-2xl space-y-2.5">
+          <div class="flex items-center justify-between">
+            <label class="block text-purple-300 text-xs font-bold flex items-center gap-1.5">
+              <i data-lucide="gift" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>Free Issue Scheme for this Item</span>
+            </label>
+            <span class="text-[9px] text-purple-400 bg-purple-500/20 px-2 py-0.5 rounded-full border border-purple-500/30 font-bold">Per Item</span>
+          </div>
+
+          <!-- Scheme Type Selector -->
+          <div class="grid grid-cols-3 gap-1.5 text-[11px]">
+            <button
+              type="button"
+              id="btn-item-scheme-custom"
+              onclick="setItemFreeSchemeType('custom')"
+              class="touch-press py-1.5 px-1 rounded-xl bg-purple-600 border border-purple-400 text-white font-bold text-center transition shadow-sm text-[11px]"
+            >
+              Custom (වෙනම)
+            </button>
+            <button
+              type="button"
+              id="btn-item-scheme-global"
+              onclick="setItemFreeSchemeType('global')"
+              class="touch-press py-1.5 px-1 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 font-semibold text-center transition text-[11px]"
+            >
+              Default (25/2..)
+            </button>
+            <button
+              type="button"
+              id="btn-item-scheme-none"
+              onclick="setItemFreeSchemeType('none')"
+              class="touch-press py-1.5 px-1 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 font-semibold text-center transition text-[11px]"
+            >
+              No Free
+            </button>
+          </div>
+
+          <!-- Custom Tiers Area -->
+          <div id="item-free-scheme-custom-area" class="space-y-2 pt-0.5">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] text-slate-400 font-semibold">Quick Presets:</span>
+              <div class="flex items-center gap-1">
+                <button type="button" onclick="applyItemSchemePreset('50_5')" class="touch-press px-2 py-0.5 rounded-lg bg-surface-800 hover:bg-slate-700 text-[10px] text-purple-300 border border-purple-500/30 font-bold">50/5 (Rs 60)</button>
+                <button type="button" onclick="applyItemSchemePreset('50_4')" class="touch-press px-2 py-0.5 rounded-lg bg-surface-800 hover:bg-slate-700 text-[10px] text-purple-300 border border-purple-500/30 font-bold">50/4 (Rs 130)</button>
+              </div>
+            </div>
+
+            <!-- Custom Tier Rows Container -->
+            <div id="item-scheme-tier-rows" class="space-y-1.5 max-h-36 overflow-y-auto pr-1 no-scrollbar">
+              <!-- Dynamically populated tier inputs -->
+            </div>
+
+            <button type="button" onclick="addItemSchemeTierRow(0, 0)" class="touch-press w-full py-1.5 bg-surface-850 hover:bg-slate-800 border border-dashed border-purple-500/40 text-purple-300 font-bold rounded-xl text-[10px] flex items-center justify-center gap-1">
+              <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-purple-400"></i>
+              <span>+ Add Tier (උදා: 50 ට 4ක්)</span>
+            </button>
+          </div>
+        </div>
+
       </div>
 
-      <div class="flex gap-2 pt-2">
-        <button onclick="closeMasterItemModal()" class="w-1/3 py-2.5 rounded-xl bg-surface-800 text-slate-300 text-xs font-semibold">Cancel</button>
-        <button onclick="saveMasterItem()" class="flex-1 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold">Save Item</button>
+      <!-- Modal Footer Actions -->
+      <div class="p-3 border-t border-slate-800 bg-surface-850 flex gap-2">
+        <button onclick="closeMasterItemModal()" class="w-1/3 py-2.5 rounded-xl bg-surface-800 text-slate-300 text-xs font-semibold border border-slate-700">Cancel</button>
+        <button onclick="saveMasterItem()" class="flex-1 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-500 text-white text-xs font-bold shadow-md shadow-emerald-950">Save Item</button>
       </div>
+
     </div>
   </div>
 
@@ -1001,6 +1286,43 @@
 
 
   <!-- ========================================================================= -->
+  <!-- MODAL 5: EDIT FREE SCHEMES MODAL                                          -->
+  <!-- ========================================================================= -->
+  <div id="modal-edit-free-schemes" class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="bg-surface-900 border border-purple-500/40 rounded-3xl w-full max-w-sm p-4 space-y-3.5 shadow-2xl animate-fade-in flex flex-col max-h-[90vh] overflow-hidden">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-2.5">
+        <div class="flex items-center gap-2">
+          <div class="w-8 h-8 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center">
+            <i data-lucide="gift" class="w-4 h-4"></i>
+          </div>
+          <div>
+            <h3 class="text-sm font-bold text-white">Edit Free Issue Schemes</h3>
+            <p class="text-[10px] text-slate-400">නොමිලේ ලැබෙන Pekat ගණන වෙනස් කිරීම</p>
+          </div>
+        </div>
+        <button onclick="closeEditFreeSchemesModal()" class="w-7 h-7 rounded-full bg-surface-800 text-slate-400 hover:text-white flex items-center justify-center">
+          <i data-lucide="x" class="w-4 h-4"></i>
+        </button>
+      </div>
+
+      <div class="space-y-2 overflow-y-auto max-h-72 pr-1 no-scrollbar" id="scheme-tier-rows-container">
+        <!-- Dynamic Tier Rows -->
+      </div>
+
+      <button type="button" onclick="addSchemeTierRow(0, 0)" class="touch-press w-full py-2 bg-surface-800 hover:bg-slate-700 border border-dashed border-purple-500/40 text-purple-300 font-bold rounded-xl text-xs flex items-center justify-center gap-1.5">
+        <i data-lucide="plus-circle" class="w-3.5 h-3.5 text-purple-400"></i>
+        <span>Add New Scheme Tier (+ තවත් එක්කරන්න)</span>
+      </button>
+
+      <div class="flex gap-2 pt-1 border-t border-slate-800">
+        <button onclick="closeEditFreeSchemesModal()" class="w-1/3 py-2.5 rounded-xl bg-surface-800 text-slate-300 text-xs font-semibold">Cancel</button>
+        <button onclick="saveCustomFreeSchemes()" class="flex-1 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold shadow-md shadow-purple-950">Save Schemes</button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================================================= -->
   <!-- TOAST NOTIFICATION POPUP                                                  -->
   <!-- ========================================================================= -->
   <div id="toast" class="fixed top-5 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 -translate-y-16 opacity-0">
@@ -1033,43 +1355,56 @@
       </div>
 
       <!-- Executive KPI Summary Cards -->
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 22px;">
-        <div style="background: #f0fdf4; border: 1.5px solid #86efac; padding: 12px 10px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 9px; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;">Total Sales</div>
-          <div id="pdf-kpi-sales" style="font-size: 12px; font-weight: 800; color: #15803d; margin-top: 5px;">LKR 0.00</div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px;">
+        <div style="background: #f8fafc; border: 1.5px solid #cbd5e1; padding: 10px 8px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #475569; text-transform: uppercase; letter-spacing: 0.5px;">Gross Sales</div>
+          <div id="pdf-kpi-gross" style="font-size: 12px; font-weight: 800; color: #334155; margin-top: 4px;">LKR 0.00</div>
         </div>
-        <div style="background: #fefce8; border: 1.5px solid #fde047; padding: 12px 10px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 9px; font-weight: 700; color: #854d0e; text-transform: uppercase; letter-spacing: 0.5px;">Commission</div>
-          <div id="pdf-kpi-salary" style="font-size: 12px; font-weight: 800; color: #a16207; margin-top: 5px;">LKR 0.00</div>
+        <div style="background: #fff1f2; border: 1.5px solid #fecdd3; padding: 10px 8px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #9f1239; text-transform: uppercase; letter-spacing: 0.5px;">Return Deductions</div>
+          <div id="pdf-kpi-ret-deduct" style="font-size: 12px; font-weight: 800; color: #be123c; margin-top: 4px;">- LKR 0.00</div>
         </div>
-        <div style="background: #eff6ff; border: 1.5px solid #93c5fd; padding: 12px 10px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 9px; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px;">Bills</div>
-          <div id="pdf-kpi-bills" style="font-size: 12px; font-weight: 800; color: #1d4ed8; margin-top: 5px;">0</div>
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; padding: 10px 8px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #166534; text-transform: uppercase; letter-spacing: 0.5px;">Net Sales</div>
+          <div id="pdf-kpi-sales" style="font-size: 12px; font-weight: 800; color: #15803d; margin-top: 4px;">LKR 0.00</div>
         </div>
-        <div style="background: #faf5ff; border: 1.5px solid #d8b4fe; padding: 12px 10px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 9px; font-weight: 700; color: #6b21a8; text-transform: uppercase; letter-spacing: 0.5px;">Free Issues</div>
-          <div id="pdf-kpi-free" style="font-size: 12px; font-weight: 800; color: #7e22ce; margin-top: 5px;">0 Pkts</div>
+        <div style="background: #fefce8; border: 1.5px solid #fde047; padding: 10px 8px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #854d0e; text-transform: uppercase; letter-spacing: 0.5px;">Net Commission</div>
+          <div id="pdf-kpi-salary" style="font-size: 12px; font-weight: 800; color: #a16207; margin-top: 4px;">LKR 0.00</div>
         </div>
-        <div style="background: #fff7ed; border: 1.5px solid #fdba74; padding: 12px 10px; border-radius: 10px; text-align: center;">
-          <div style="font-size: 9px; font-weight: 700; color: #9a3412; text-transform: uppercase; letter-spacing: 0.5px;">Returns</div>
-          <div id="pdf-kpi-returns" style="font-size: 12px; font-weight: 800; color: #c2410c; margin-top: 5px;">0 Pkts</div>
+      </div>
+
+      <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 22px;">
+        <div style="background: #eff6ff; border: 1.5px solid #93c5fd; padding: 8px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #1e40af; text-transform: uppercase; letter-spacing: 0.5px;">Bills Completed</div>
+          <div id="pdf-kpi-bills" style="font-size: 11px; font-weight: 800; color: #1d4ed8; margin-top: 3px;">0</div>
+        </div>
+        <div style="background: #faf5ff; border: 1.5px solid #d8b4fe; padding: 8px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #6b21a8; text-transform: uppercase; letter-spacing: 0.5px;">Free Issues Given</div>
+          <div id="pdf-kpi-free" style="font-size: 11px; font-weight: 800; color: #7e22ce; margin-top: 3px;">0 Pkts</div>
+        </div>
+        <div style="background: #fff7ed; border: 1.5px solid #fdba74; padding: 8px 10px; border-radius: 10px; text-align: center;">
+          <div style="font-size: 8px; font-weight: 700; color: #9a3412; text-transform: uppercase; letter-spacing: 0.5px;">Returns / Exchanges</div>
+          <div id="pdf-kpi-returns" style="font-size: 11px; font-weight: 800; color: #c2410c; margin-top: 3px;">0 Pkts</div>
         </div>
       </div>
 
       <!-- Itemized Table -->
       <div style="margin-bottom: 24px;">
-        <h3 style="font-size: 11px; font-weight: 700; color: #047857; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.8px; border-left: 3px solid #10b981; padding-left: 8px;">Item-Wise Sales Summary</h3>
-        <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+        <h3 style="font-size: 11px; font-weight: 700; color: #047857; margin: 0 0 8px 0; text-transform: uppercase; letter-spacing: 0.8px; border-left: 3px solid #10b981; padding-left: 8px;">Item-Wise Sales & Returns Summary</h3>
+        <table style="width: 100%; border-collapse: collapse; font-size: 9.5px;">
           <thead>
             <tr style="background: #f8fafc; border-top: 2px solid #e2e8f0; border-bottom: 2px solid #e2e8f0;">
-              <th style="padding: 8px 10px; text-align: left; font-weight: 700; color: #374151;">Item Name</th>
-              <th style="padding: 8px 8px; text-align: right; font-weight: 700; color: #374151;">Unit Price</th>
-              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #374151;">Comm %</th>
-              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #374151;">Qty Sold</th>
-              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #7e22ce;">Free</th>
-              <th style="padding: 8px 6px; text-align: center; font-weight: 700; color: #c2410c;">Ret</th>
-              <th style="padding: 8px 10px; text-align: right; font-weight: 700; color: #374151;">Sales (LKR)</th>
-              <th style="padding: 8px 10px; text-align: right; font-weight: 700; color: #a16207;">Comm (LKR)</th>
+              <th style="padding: 7px 8px; text-align: left; font-weight: 700; color: #374151;">Item Name</th>
+              <th style="padding: 7px 6px; text-align: right; font-weight: 700; color: #374151;">Price</th>
+              <th style="padding: 7px 4px; text-align: center; font-weight: 700; color: #a16207;">Comm%</th>
+              <th style="padding: 7px 4px; text-align: center; font-weight: 700; color: #1d4ed8;">Sold</th>
+              <th style="padding: 7px 4px; text-align: center; font-weight: 700; color: #7e22ce;">Free</th>
+              <th style="padding: 7px 4px; text-align: center; font-weight: 700; color: #c2410c;">Ret/Exch</th>
+              <th style="padding: 7px 6px; text-align: right; font-weight: 700; color: #374151;">Gross</th>
+              <th style="padding: 7px 6px; text-align: right; font-weight: 700; color: #be123c;">Ret Ded</th>
+              <th style="padding: 7px 6px; text-align: right; font-weight: 700; color: #15803d;">Net Sales</th>
+              <th style="padding: 7px 6px; text-align: right; font-weight: 700; color: #a16207;">Comm (LKR)</th>
             </tr>
           </thead>
           <tbody id="pdf-items-tbody">
@@ -1086,7 +1421,7 @@
           <span style="font-weight: 600;">Sales Representative Signature</span>
         </div>
         <div style="text-align: center; font-size: 9px; color: #9ca3af;">
-          <div>📱 MOB POS — Offline Sales Tracker</div>
+          <div>📱 MOB POS — Offline Sales & Returns Tracker</div>
           <div id="pdf-footer-date" style="margin-top: 2px;"></div>
         </div>
         <div style="text-align: center; width: 200px;">
@@ -1104,7 +1439,7 @@
   <!-- ========================================================================= -->
   <script>
     /**
-     * Mobile POS & 5% Salary Accumulator
+     * Mobile POS & Commission Salary Tracker
      * Dexie.js (IndexedDB) Architecture
      */
 
@@ -1118,7 +1453,6 @@
       dailySummaries: 'date, totalSales, totalBills, totalFreeIssues, totalReturns, returnTotalValue, salaryEarned'
     });
 
-    // Version 2: add commissionPct to items for per-product commission rates
     db.version(2).stores({
       pin: 'id',
       items: '++id, name, retailerPrice, category, commissionPct',
@@ -1130,22 +1464,77 @@
       });
     });
 
-    // Default Seed Items
+    // Version 3: Full support for Gross Sales, Return Deductions, and 1-to-1 Exchanges
+    db.version(3).stores({
+      pin: 'id',
+      items: '++id, name, retailerPrice, category, commissionPct',
+      sales: '++id, billNo, timestamp, date, yearMonth, totalSales, grossSales, netSales, freeIssuesCount, returnCount, exchangeCount, returnTotalValue, returnDeductionValue, salaryEarned, itemsJson',
+      dailySummaries: 'date, totalSales, grossSales, totalBills, totalFreeIssues, totalReturns, totalExchanges, returnTotalValue, returnDeductionValue, salaryEarned'
+    }).upgrade(tx => {
+      return tx.table('sales').toCollection().modify(sale => {
+        if (sale.grossSales === undefined) sale.grossSales = sale.totalSales || 0;
+        if (sale.netSales === undefined) sale.netSales = sale.totalSales || 0;
+        if (sale.returnDeductionValue === undefined) sale.returnDeductionValue = 0;
+        if (sale.exchangeCount === undefined) sale.exchangeCount = 0;
+      });
+    });
+
+    // Default Seed Items (Includes user's Soya examples with per-item free schemes)
     const DEFAULT_ITEMS = [
-      { name: "Munchee Super Cream Crackers 500g", retailerPrice: 460.00, category: "Biscuits", commissionPct: 5 },
-      { name: "Maliban Gold Marie 300g", retailerPrice: 280.00, category: "Biscuits", commissionPct: 5 },
-      { name: "Munchee Lemon Puff 200g", retailerPrice: 240.00, category: "Biscuits", commissionPct: 5 },
-      { name: "Anchor Milk Powder 400g", retailerPrice: 1150.00, category: "Groceries", commissionPct: 5 },
-      { name: "Highland Full Cream Milk Powder 400g", retailerPrice: 1050.00, category: "Groceries", commissionPct: 5 },
-      { name: "Watawala Tea Kahata 200g", retailerPrice: 380.00, category: "Groceries", commissionPct: 5 },
-      { name: "Sunlight Lemon Soap 115g", retailerPrice: 140.00, category: "Household", commissionPct: 5 },
-      { name: "Prima KottuMee Hot & Spicy", retailerPrice: 180.00, category: "Groceries", commissionPct: 5 },
-      { name: "Coca-Cola 400ml Pet", retailerPrice: 150.00, category: "Beverages", commissionPct: 5 },
-      { name: "Elephant House Ginger Beer 400ml", retailerPrice: 160.00, category: "Beverages", commissionPct: 5 },
-      { name: "Harischandra Coffee 100g", retailerPrice: 320.00, category: "Groceries", commissionPct: 5 },
-      { name: "Clogard Toothpaste 120g", retailerPrice: 260.00, category: "Household", commissionPct: 5 }
+      {
+        name: "Soya Meat 60g (Regular)",
+        retailerPrice: 60.00,
+        category: "Groceries",
+        commissionPct: 5,
+        freeSchemeType: "custom",
+        freeSchemes: [
+          { buy: 25, free: 2 },
+          { buy: 50, free: 5 },
+          { buy: 100, free: 15 },
+          { buy: 200, free: 40 },
+          { buy: 300, free: 60 },
+          { buy: 400, free: 80 }
+        ]
+      },
+      {
+        name: "Soya Meat 130g (Special)",
+        retailerPrice: 130.00,
+        category: "Groceries",
+        commissionPct: 5,
+        freeSchemeType: "custom",
+        freeSchemes: [
+          { buy: 25, free: 2 },
+          { buy: 50, free: 4 },
+          { buy: 100, free: 10 },
+          { buy: 200, free: 25 },
+          { buy: 300, free: 40 },
+          { buy: 400, free: 55 }
+        ]
+      },
+      { name: "Munchee Super Cream Crackers 500g", retailerPrice: 460.00, category: "Biscuits", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Maliban Gold Marie 300g", retailerPrice: 280.00, category: "Biscuits", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Munchee Lemon Puff 200g", retailerPrice: 240.00, category: "Biscuits", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Anchor Milk Powder 400g", retailerPrice: 1150.00, category: "Groceries", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Highland Full Cream Milk Powder 400g", retailerPrice: 1050.00, category: "Groceries", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Watawala Tea Kahata 200g", retailerPrice: 380.00, category: "Groceries", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Sunlight Lemon Soap 115g", retailerPrice: 140.00, category: "Household", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Prima KottuMee Hot & Spicy", retailerPrice: 180.00, category: "Groceries", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Coca-Cola 400ml Pet", retailerPrice: 150.00, category: "Beverages", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Elephant House Ginger Beer 400ml", retailerPrice: 160.00, category: "Beverages", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Harischandra Coffee 100g", retailerPrice: 320.00, category: "Groceries", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] },
+      { name: "Clogard Toothpaste 120g", retailerPrice: 260.00, category: "Household", commissionPct: 5, freeSchemeType: "none", freeSchemes: [] }
     ];
 
+
+    // Default Free Issue Scheme Rules (Buy Qty -> Free Qty)
+    const DEFAULT_FREE_SCHEMES = [
+      { buy: 25, free: 2 },
+      { buy: 50, free: 5 },
+      { buy: 100, free: 15 },
+      { buy: 200, free: 40 },
+      { buy: 300, free: 60 },
+      { buy: 400, free: 80 }
+    ];
 
     // --- 2. State Management ---
     const AppState = {
@@ -1155,12 +1544,21 @@
       selectedCategory: "all",
       searchQuery: "",
       masterItems: [],
+      // Global Free issue scheme rules & auto calculation toggle
+      freeSchemes: [...DEFAULT_FREE_SCHEMES],
+      autoFreeEnabled: true,
+      editingSchemeTiers: [],
+      // Per-item scheme editing state in modal
+      editingItemSchemeType: 'custom',
+      editingItemSchemeTiers: [],
       // Active Bill in progress
       activeBill: {
-        items: [] // { id, name, retailerPrice, qty, freeIssues, returnQty, lineTotal, returnLineVal }
+        items: [] // { id, name, retailerPrice, commissionPct, qty, freeIssues, returnQty, returnType, returnReason, returnUnitPrice, returnLineVal, lineGross, lineDeduction, lineTotal, lineCommission }
       },
       // Current modal item editing state
       modalItem: null,
+      modalItemReturnType: 'deduct', // 'deduct' or 'exchange'
+      modalItemReturnReason: 'expired', // 'expired' or 'unsold'
       // Report filter period
       reportPeriod: "weekly" // 'weekly', 'monthly', 'yearly', 'all'
     };
@@ -1169,10 +1567,8 @@
     let deferredPrompt = null;
 
     window.addEventListener('beforeinstallprompt', (e) => {
-      // Prevent the mini-infobar from appearing on mobile
       e.preventDefault();
       deferredPrompt = e;
-      // Show custom install banner
       const banner = document.getElementById('pwa-install-banner');
       if (banner && !sessionStorage.getItem('pwa_banner_dismissed')) {
         banner.classList.remove('hidden');
@@ -1191,7 +1587,7 @@
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('[PWA] User accepted the install prompt');
+            console.log('[PWA] User accepted install prompt');
             showToast('Installing MOB POS App...', 'download-cloud');
           }
           deferredPrompt = null;
@@ -1199,7 +1595,6 @@
           if (banner) banner.classList.add('hidden');
         });
       } else {
-        // iOS or manual guidance
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
         if (isIOS) {
           alert('📱 To install on iPhone/iPad:\n\n1. Tap the Share button (📤) in Safari.\n2. Scroll down and tap "Add to Home Screen".');
@@ -1241,7 +1636,6 @@
     }
 
     window.addEventListener('DOMContentLoaded', async () => {
-      // Register Service Worker for PWA (Relative path for GitHub Pages)
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('./sw.js', { scope: './' }).then(reg => {
           console.log('[PWA] Service Worker registered with scope:', reg.scope);
@@ -1253,10 +1647,12 @@
       setupNetworkListeners();
       lucide.createIcons();
       startLiveClock();
+      loadFreeSchemesFromStorage();
       await initializeDatabaseDefaults();
       await loadMasterItems();
       await refreshDashboard();
       loadShopProfile();
+      renderSettingsFreeSchemes();
     });
 
     async function initializeDatabaseDefaults() {
@@ -1266,22 +1662,51 @@
         await db.pin.put({ id: 1, pinCode: '123' });
       }
 
-      // 2. Check Items
+      // 2. Check Items & migrate per-item free schemes
       const itemCount = await db.items.count();
       if (itemCount === 0) {
         await db.items.bulkAdd(DEFAULT_ITEMS);
         console.log('[DB] Pre-seeded default sample items');
       } else {
-        // Ensure existing items have commissionPct defined
         const allItems = await db.items.toArray();
         for (const it of allItems) {
+          const updates = {};
           if (it.commissionPct === undefined || it.commissionPct === null) {
-            await db.items.update(it.id, { commissionPct: 5 });
+            updates.commissionPct = 5;
+          }
+          if (it.freeSchemeType === undefined) {
+            const nameLower = (it.name || '').toLowerCase();
+            if (nameLower.includes('60g') || nameLower.includes('60 soya')) {
+              updates.freeSchemeType = 'custom';
+              updates.freeSchemes = [
+                { buy: 25, free: 2 },
+                { buy: 50, free: 5 },
+                { buy: 100, free: 15 },
+                { buy: 200, free: 40 },
+                { buy: 300, free: 60 },
+                { buy: 400, free: 80 }
+              ];
+            } else if (nameLower.includes('130g') || nameLower.includes('130 soya')) {
+              updates.freeSchemeType = 'custom';
+              updates.freeSchemes = [
+                { buy: 25, free: 2 },
+                { buy: 50, free: 4 },
+                { buy: 100, free: 10 },
+                { buy: 200, free: 25 },
+                { buy: 300, free: 40 },
+                { buy: 400, free: 55 }
+              ];
+            } else {
+              updates.freeSchemeType = 'none';
+              updates.freeSchemes = [];
+            }
+          }
+          if (Object.keys(updates).length > 0) {
+            await db.items.update(it.id, updates);
           }
         }
       }
     }
-
 
     function startLiveClock() {
       const updateClock = () => {
@@ -1338,11 +1763,9 @@
       const correctPin = pinRecord ? pinRecord.pinCode : '123';
 
       if (AppState.pinInput === correctPin) {
-        // Success: Unlock and smoothly transition to Main POS Sales Screen!
         playBeep(880, 0.1);
         unlockApp();
       } else {
-        // Error: Shake animation & reset
         playBeep(220, 0.2);
         const container = document.getElementById('pin-dots-container');
         container.classList.add('animate-shake');
@@ -1365,8 +1788,6 @@
       pinScreen.style.pointerEvents = 'none';
 
       appShell.classList.remove('opacity-0', 'pointer-events-none');
-      
-      // Directly focus on the Main POS Screen
       switchView('pos');
       showToast('Welcome to MOB POS', 'check-circle-2');
     }
@@ -1390,19 +1811,16 @@
     function switchView(viewName) {
       AppState.currentView = viewName;
 
-      // Hide all view sections
       document.getElementById('view-pos').classList.add('hidden');
       document.getElementById('view-dashboard').classList.add('hidden');
       document.getElementById('view-reports').classList.add('hidden');
       document.getElementById('view-settings').classList.add('hidden');
 
-      // Reset bottom nav active states
       document.querySelectorAll('.nav-item').forEach(btn => {
         btn.classList.remove('text-brand-400', 'font-bold');
         btn.classList.add('text-slate-400');
       });
 
-      // Show selected section & highlight tab
       const targetSection = document.getElementById(`view-${viewName}`);
       if (targetSection) targetSection.classList.remove('hidden');
 
@@ -1412,7 +1830,6 @@
         activeNavBtn.classList.remove('text-slate-400');
       }
 
-      // Refresh view-specific data
       if (viewName === 'pos') {
         renderPOSItemsGrid();
         updateFloatingCartUI();
@@ -1484,18 +1901,35 @@
       emptyMsg.classList.add('hidden');
 
       filtered.forEach(item => {
-        // Check if item already exists in active bill
         const existing = AppState.activeBill.items.find(i => i.id === item.id);
         const card = document.createElement('div');
-        card.className = `touch-press bg-surface-850 hover:bg-slate-800 border ${existing ? 'border-brand-500 ring-1 ring-brand-500/50' : 'border-slate-800'} p-3 rounded-2xl flex flex-col justify-between cursor-pointer transition shadow-md relative overflow-hidden`;
+        
+        let borderClass = 'border-slate-800';
+        let badgeHtml = '';
+
+        if (existing) {
+          if (existing.qty > 0 && existing.returnQty === 0) {
+            borderClass = 'border-brand-500 ring-1 ring-brand-500/50';
+            badgeHtml = `<div class="absolute top-2 right-2 bg-brand-500 text-slate-950 text-[10px] font-black px-1.5 py-0.5 rounded-md shadow">${existing.qty} sold</div>`;
+          } else if (existing.qty === 0 && existing.returnQty > 0) {
+            if (existing.returnType === 'exchange') {
+              borderClass = 'border-blue-500 ring-1 ring-blue-500/50';
+              badgeHtml = `<div class="absolute top-2 right-2 bg-blue-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow">${existing.returnQty} exch 🔄</div>`;
+            } else {
+              borderClass = 'border-rose-500 ring-1 ring-rose-500/50';
+              badgeHtml = `<div class="absolute top-2 right-2 bg-rose-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-md shadow">${existing.returnQty} ret (-${(existing.returnLineVal || 0).toFixed(0)})</div>`;
+            }
+          } else if (existing.qty > 0 && existing.returnQty > 0) {
+            borderClass = 'border-amber-500 ring-1 ring-amber-500/50';
+            badgeHtml = `<div class="absolute top-2 right-2 bg-amber-500 text-slate-950 text-[10px] font-black px-1.5 py-0.5 rounded-md shadow">${existing.qty} sold | ${existing.returnQty} ret</div>`;
+          }
+        }
+
+        card.className = `touch-press bg-surface-850 hover:bg-slate-800 border ${borderClass} p-3 rounded-2xl flex flex-col justify-between cursor-pointer transition shadow-md relative overflow-hidden`;
         card.onclick = () => openItemEntryModal(item);
 
         card.innerHTML = `
-          ${existing ? `
-            <div class="absolute top-2 right-2 bg-brand-500 text-slate-950 text-[10px] font-black px-1.5 py-0.5 rounded-md shadow">
-              ${existing.qty} sold
-            </div>
-          ` : ''}
+          ${badgeHtml}
           <div>
             <div class="text-[9px] uppercase font-bold text-slate-400 tracking-wider mb-1">${item.category || 'General'}</div>
             <h4 class="text-xs font-bold text-white line-clamp-2 leading-tight">${item.name}</h4>
@@ -1511,25 +1945,267 @@
     }
 
 
-    // --- 7. Fast Item Input Panel / Drawer ---
+    // --- 7. Fast Item Input Panel / Drawer & Free Scheme Logic ---
+    function loadFreeSchemesFromStorage() {
+      const saved = localStorage.getItem('mobpos_free_schemes');
+      if (saved) {
+        try {
+          const parsed = JSON.parse(saved);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            AppState.freeSchemes = parsed.sort((a, b) => a.buy - b.buy);
+          }
+        } catch (e) {
+          console.error('Failed to parse saved free schemes', e);
+        }
+      }
+      const savedToggle = localStorage.getItem('mobpos_auto_free_enabled');
+      if (savedToggle !== null) {
+        AppState.autoFreeEnabled = (savedToggle === 'true');
+      }
+      const toggleEl = document.getElementById('setting-auto-free-toggle');
+      if (toggleEl) toggleEl.checked = AppState.autoFreeEnabled;
+    }
+
+    function getItemEffectiveFreeSchemes(item) {
+      if (!item) return AppState.freeSchemes || DEFAULT_FREE_SCHEMES;
+      if (item.freeSchemeType === 'none') {
+        return [];
+      }
+      if (item.freeSchemeType === 'custom' && Array.isArray(item.freeSchemes)) {
+        return item.freeSchemes;
+      }
+      return AppState.freeSchemes || DEFAULT_FREE_SCHEMES;
+    }
+
+    function calculateAutoFreeIssues(qty, itemOrSchemeTiers) {
+      if (!qty || qty <= 0) return 0;
+      let tiers;
+      if (Array.isArray(itemOrSchemeTiers)) {
+        tiers = itemOrSchemeTiers;
+      } else if (itemOrSchemeTiers && typeof itemOrSchemeTiers === 'object') {
+        tiers = getItemEffectiveFreeSchemes(itemOrSchemeTiers);
+      } else {
+        tiers = AppState.freeSchemes || DEFAULT_FREE_SCHEMES;
+      }
+
+      if (!tiers || tiers.length === 0) return 0;
+
+      const sortedTiers = [...tiers].filter(t => t.buy > 0 && t.free > 0).sort((a, b) => b.buy - a.buy);
+      if (sortedTiers.length === 0) return 0;
+
+      let remaining = qty;
+      let totalFree = 0;
+
+      for (const tier of sortedTiers) {
+        if (tier.buy > 0 && remaining >= tier.buy) {
+          const count = Math.floor(remaining / tier.buy);
+          totalFree += count * tier.free;
+          remaining = remaining % tier.buy;
+        }
+      }
+      return totalFree;
+    }
+
+    function renderQuickFreePresets(qty, currentFree, item = AppState.modalItem) {
+      const container = document.getElementById('quick-free-presets');
+      if (!container) return;
+
+      const autoVal = calculateAutoFreeIssues(qty, item);
+      const isNone = item && item.freeSchemeType === 'none';
+      let buttons = [];
+
+      if (isNone) {
+        buttons.push({ label: 'No Scheme (0)', val: 0, isClear: true });
+        buttons.push({ label: '+1 Free', val: 1 });
+        buttons.push({ label: '+2 Free', val: 2 });
+      } else {
+        // 1. Auto Scheme button
+        buttons.push({
+          label: `🎁 Auto (${autoVal})`,
+          val: autoVal,
+          isAuto: true,
+          active: currentFree === autoVal && autoVal > 0
+        });
+
+        // 2. Context-specific special presets based on current quantity & item
+        if (qty >= 25 && qty < 50) {
+          if (autoVal !== 2) buttons.push({ label: '2 Free', val: 2 });
+          buttons.push({ label: '⭐ 3 Free (Special)', val: 3 });
+        } else if (qty >= 50 && qty < 100) {
+          if (autoVal !== 5 && autoVal !== 4) buttons.push({ label: '5 Free', val: 5 });
+          if (autoVal === 4) {
+            buttons.push({ label: '⭐ 5 Free (Deal)', val: 5 });
+            buttons.push({ label: '⭐ 8 Free', val: 8 });
+          } else {
+            buttons.push({ label: '⭐ 10 Free (Shop Special)', val: 10 });
+          }
+        } else if (qty >= 100 && qty < 200) {
+          if (autoVal === 10) {
+            buttons.push({ label: '⭐ 12 Free', val: 12 });
+            buttons.push({ label: '⭐ 15 Free (VIP)', val: 15 });
+          } else {
+            if (autoVal !== 15) buttons.push({ label: '15 Free', val: 15 });
+            buttons.push({ label: '⭐ 18 Free (Shop)', val: 18 });
+            buttons.push({ label: '⭐ 20 Free (VIP)', val: 20 });
+          }
+        } else if (qty >= 200 && qty < 300) {
+          if (autoVal === 25) {
+            buttons.push({ label: '⭐ 30 Free', val: 30 });
+            buttons.push({ label: '⭐ 40 Free (VIP)', val: 40 });
+          } else {
+            if (autoVal !== 40) buttons.push({ label: '40 Free', val: 40 });
+            buttons.push({ label: '⭐ 50 Free (Shop Special)', val: 50 });
+          }
+        } else if (qty >= 300 && qty < 400) {
+          buttons.push({ label: `⭐ ${autoVal + 10} Free`, val: autoVal + 10 });
+        } else if (qty >= 400) {
+          buttons.push({ label: `⭐ ${autoVal + 20} Free (VIP)`, val: autoVal + 20 });
+        }
+
+        // 3. Clear button if currentFree > 0
+        if (currentFree > 0) {
+          buttons.push({ label: '0 Free', val: 0, isClear: true });
+        }
+      }
+
+      // Render HTML chips
+      container.innerHTML = buttons.map(b => {
+        const isSelected = (currentFree === b.val);
+        const bgClass = isSelected 
+          ? 'bg-purple-600 text-white border-purple-400 font-bold shadow-sm' 
+          : (b.isClear 
+              ? 'bg-surface-800 text-slate-400 border-slate-700 hover:text-slate-200' 
+              : 'bg-surface-800 text-purple-300 border-purple-500/30 hover:bg-purple-900/40');
+        return `<button type="button" onclick="setDirectFree(${b.val})" class="touch-press px-2 py-1 rounded-lg text-[10px] border ${bgClass} transition flex items-center gap-1">${b.label}</button>`;
+      }).join('');
+    }
+
+    function onModalQtyInput(isUserDirectInput = true) {
+      const qtyInput = document.getElementById('input-item-qty');
+      let qty = parseInt(qtyInput.value, 10) || 0;
+      if (qty < 0) qty = 0;
+
+      if (AppState.autoFreeEnabled) {
+        const autoFree = calculateAutoFreeIssues(qty, AppState.modalItem);
+        const freeInput = document.getElementById('input-item-free');
+        freeInput.value = autoFree;
+        
+        const badgeEl = document.getElementById('free-scheme-badge-text');
+        if (badgeEl) {
+          if (AppState.modalItem?.freeSchemeType === 'none') {
+            badgeEl.innerText = `No Free Promo`;
+          } else if (autoFree > 0) {
+            badgeEl.innerText = `Auto: ${autoFree} Free`;
+          } else {
+            badgeEl.innerText = `Auto Scheme`;
+          }
+        }
+      }
+
+      const currentFree = parseInt(document.getElementById('input-item-free').value, 10) || 0;
+      renderQuickFreePresets(qty, currentFree, AppState.modalItem);
+      calcModalLineTotal();
+    }
+
+    function onManualFreeInput() {
+      const freeInput = document.getElementById('input-item-free');
+      const qty = parseInt(document.getElementById('input-item-qty').value, 10) || 0;
+      let freeVal = parseInt(freeInput.value, 10) || 0;
+      if (freeVal < 0) freeVal = 0;
+
+      const autoVal = calculateAutoFreeIssues(qty, AppState.modalItem);
+      const badgeEl = document.getElementById('free-scheme-badge-text');
+      if (badgeEl) {
+        if (AppState.modalItem?.freeSchemeType === 'none') {
+          badgeEl.innerText = freeVal > 0 ? `Custom: ${freeVal} Free` : `No Free Promo`;
+        } else if (freeVal === autoVal && freeVal > 0) {
+          badgeEl.innerText = `Auto: ${freeVal} Free`;
+        } else if (freeVal > 0) {
+          badgeEl.innerText = `Special: ${freeVal} Free`;
+        } else {
+          badgeEl.innerText = `No Free`;
+        }
+      }
+
+      renderQuickFreePresets(qty, freeVal, AppState.modalItem);
+      calcModalLineTotal();
+    }
+
+    function setDirectFree(val) {
+      const input = document.getElementById('input-item-free');
+      input.value = Math.max(0, val);
+      const qty = parseInt(document.getElementById('input-item-qty').value, 10) || 0;
+      const autoVal = calculateAutoFreeIssues(qty, AppState.modalItem);
+      
+      const badgeEl = document.getElementById('free-scheme-badge-text');
+      if (badgeEl) {
+        if (AppState.modalItem?.freeSchemeType === 'none') {
+          badgeEl.innerText = val > 0 ? `Custom: ${val} Free` : `No Free Promo`;
+        } else if (val === autoVal && val > 0) {
+          badgeEl.innerText = `Auto: ${val} Free`;
+        } else if (val > 0) {
+          badgeEl.innerText = `Special: ${val} Free`;
+        } else {
+          badgeEl.innerText = `No Free`;
+        }
+      }
+
+      renderQuickFreePresets(qty, val, AppState.modalItem);
+      calcModalLineTotal();
+      playBeep(520, 0.03);
+    }
+
     function openItemEntryModal(item) {
       AppState.modalItem = item;
       document.getElementById('modal-item-name').innerText = item.name;
       document.getElementById('modal-item-price-tag').innerText = `LKR ${Number(item.retailerPrice).toFixed(2)}`;
+      
+      const catTag = document.getElementById('modal-item-category-tag');
+      if (catTag) catTag.innerText = item.category || 'General';
 
-      // Check if already in bill to populate existing values
       const existing = AppState.activeBill.items.find(i => i.id === item.id);
+      let qty = 1;
+      let freeIssues = 0;
+
       if (existing) {
-        document.getElementById('input-item-qty').value = existing.qty;
-        document.getElementById('input-item-free').value = existing.freeIssues;
+        qty = existing.qty;
+        freeIssues = existing.freeIssues;
+        document.getElementById('input-item-qty').value = qty;
+        document.getElementById('input-item-free').value = freeIssues;
         document.getElementById('input-item-return').value = existing.returnQty;
+        
+        AppState.modalItemReturnType = existing.returnType || 'deduct';
+        AppState.modalItemReturnReason = existing.returnReason || 'expired';
+        document.getElementById('input-return-unit-price').value = (existing.returnUnitPrice !== undefined ? existing.returnUnitPrice : item.retailerPrice).toFixed(2);
       } else {
-        document.getElementById('input-item-qty').value = 1;
-        document.getElementById('input-item-free').value = 0;
+        qty = 1;
+        freeIssues = AppState.autoFreeEnabled ? calculateAutoFreeIssues(1, item) : 0;
+        document.getElementById('input-item-qty').value = qty;
+        document.getElementById('input-item-free').value = freeIssues;
         document.getElementById('input-item-return').value = 0;
+        AppState.modalItemReturnType = 'deduct';
+        AppState.modalItemReturnReason = 'expired';
+        document.getElementById('input-return-unit-price').value = Number(item.retailerPrice).toFixed(2);
       }
 
+      const autoVal = calculateAutoFreeIssues(qty, item);
+      const badgeEl = document.getElementById('free-scheme-badge-text');
+      if (badgeEl) {
+        if (item.freeSchemeType === 'none') {
+          badgeEl.innerText = freeIssues > 0 ? `Custom: ${freeIssues} Free` : `No Free Promo`;
+        } else if (freeIssues === autoVal && freeIssues > 0) {
+          badgeEl.innerText = `Auto: ${freeIssues} Free`;
+        } else if (freeIssues > 0) {
+          badgeEl.innerText = `Special: ${freeIssues} Free`;
+        } else {
+          badgeEl.innerText = `Auto Scheme`;
+        }
+      }
+
+      renderQuickFreePresets(qty, freeIssues, item);
+      updateModalReturnButtonsUI();
       calcModalLineTotal();
+
       document.getElementById('modal-item-entry').classList.remove('hidden');
       document.getElementById('modal-item-entry').classList.add('flex');
     }
@@ -1540,12 +2216,74 @@
       AppState.modalItem = null;
     }
 
+    function setQuickReturnOnly() {
+      document.getElementById('input-item-qty').value = 0;
+      const retInput = document.getElementById('input-item-return');
+      let currentRet = parseInt(retInput.value, 10) || 0;
+      if (currentRet === 0) {
+        retInput.value = 1;
+      }
+      onModalQtyInput(false);
+      playBeep(520, 0.04);
+    }
+
+    function setModalReturnType(type) {
+      AppState.modalItemReturnType = type;
+      updateModalReturnButtonsUI();
+      calcModalLineTotal();
+      playBeep(600, 0.04);
+    }
+
+    function setModalReturnReason(reason) {
+      AppState.modalItemReturnReason = reason;
+      updateModalReturnButtonsUI();
+      playBeep(480, 0.03);
+    }
+
+    function resetReturnUnitPrice() {
+      if (!AppState.modalItem) return;
+      document.getElementById('input-return-unit-price').value = Number(AppState.modalItem.retailerPrice).toFixed(2);
+      calcModalLineTotal();
+      playBeep(700, 0.04);
+    }
+
+    function updateModalReturnButtonsUI() {
+      const isDeduct = AppState.modalItemReturnType === 'deduct';
+      const btnDeduct = document.getElementById('btn-return-deduct');
+      const btnExchange = document.getElementById('btn-return-exchange');
+
+      if (btnDeduct && btnExchange) {
+        if (isDeduct) {
+          btnDeduct.className = "touch-press p-2 rounded-xl bg-brand-600 border-2 border-brand-400 text-white flex flex-col items-center justify-center text-center transition";
+          btnExchange.className = "touch-press p-2 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 hover:text-white flex flex-col items-center justify-center text-center transition";
+        } else {
+          btnDeduct.className = "touch-press p-2 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 hover:text-white flex flex-col items-center justify-center text-center transition";
+          btnExchange.className = "touch-press p-2 rounded-xl bg-blue-600 border-2 border-blue-400 text-white flex flex-col items-center justify-center text-center transition";
+        }
+      }
+
+      const isExpired = AppState.modalItemReturnReason === 'expired';
+      const btnExp = document.getElementById('btn-reason-expired');
+      const btnUnsold = document.getElementById('btn-reason-unsold');
+
+      if (btnExp && btnUnsold) {
+        if (isExpired) {
+          btnExp.className = "touch-press py-1.5 px-2 rounded-xl bg-rose-500/30 border-2 border-rose-500 text-rose-200 text-xs font-bold flex items-center justify-center gap-1 transition";
+          btnUnsold.className = "touch-press py-1.5 px-2 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 hover:text-slate-200 text-xs font-bold flex items-center justify-center gap-1 transition";
+        } else {
+          btnExp.className = "touch-press py-1.5 px-2 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 hover:text-slate-200 text-xs font-bold flex items-center justify-center gap-1 transition";
+          btnUnsold.className = "touch-press py-1.5 px-2 rounded-xl bg-amber-500/30 border-2 border-amber-500 text-amber-200 text-xs font-bold flex items-center justify-center gap-1 transition";
+        }
+      }
+      lucide.createIcons();
+    }
+
     function adjustQty(delta) {
       const input = document.getElementById('input-item-qty');
       let val = parseInt(input.value, 10) || 0;
       val = Math.max(0, val + delta);
       input.value = val;
-      calcModalLineTotal();
+      onModalQtyInput(false);
       playBeep(520, 0.03);
     }
 
@@ -1553,7 +2291,7 @@
       const input = document.getElementById('input-item-qty');
       let val = parseInt(input.value, 10) || 0;
       input.value = val + qty;
-      calcModalLineTotal();
+      onModalQtyInput(false);
       playBeep(600, 0.03);
     }
 
@@ -1562,8 +2300,138 @@
       let val = parseInt(input.value, 10) || 0;
       val = Math.max(0, val + delta);
       input.value = val;
-      calcModalLineTotal();
+      onManualFreeInput();
       playBeep(480, 0.03);
+    }
+
+    // --- Free Issue Scheme Configuration Management ---
+    function renderSettingsFreeSchemes() {
+      const container = document.getElementById('settings-free-schemes-list');
+      if (!container) return;
+
+      const toggleEl = document.getElementById('setting-auto-free-toggle');
+      if (toggleEl) toggleEl.checked = AppState.autoFreeEnabled;
+
+      const schemes = [...AppState.freeSchemes].sort((a, b) => a.buy - b.buy);
+      if (schemes.length === 0) {
+        container.innerHTML = `<p class="text-[11px] text-slate-500 text-center py-2">No scheme tiers configured</p>`;
+        return;
+      }
+
+      container.innerHTML = schemes.map(s => `
+        <div class="flex items-center justify-between p-2 rounded-xl bg-surface-850 border border-slate-800">
+          <div class="flex items-center gap-2">
+            <span class="w-7 h-6 rounded-lg bg-brand-500/20 text-brand-300 font-black font-mono text-xs flex items-center justify-center border border-brand-500/30">${s.buy}</span>
+            <span class="text-slate-300 text-xs font-semibold">Pekat ගන්නා විට</span>
+          </div>
+          <div class="flex items-center gap-1.5 font-mono font-black text-xs text-purple-300 bg-purple-500/15 px-2.5 py-1 rounded-lg border border-purple-500/30">
+            <i data-lucide="gift" class="w-3.5 h-3.5 text-purple-400"></i>
+            <span>${s.free} Free Pkts</span>
+          </div>
+        </div>
+      `).join('');
+      lucide.createIcons();
+    }
+
+    function toggleAutoFreeSetting(enabled) {
+      AppState.autoFreeEnabled = enabled;
+      localStorage.setItem('mobpos_auto_free_enabled', enabled ? 'true' : 'false');
+      showToast(enabled ? 'Auto Free Issue Scheme Enabled' : 'Auto Free Calculation Disabled', 'gift');
+    }
+
+    function openEditFreeSchemesModal() {
+      AppState.editingSchemeTiers = JSON.parse(JSON.stringify(AppState.freeSchemes)).sort((a, b) => a.buy - b.buy);
+      renderSchemeTierRows();
+      document.getElementById('modal-edit-free-schemes').classList.remove('hidden');
+      document.getElementById('modal-edit-free-schemes').classList.add('flex');
+    }
+
+    function closeEditFreeSchemesModal() {
+      document.getElementById('modal-edit-free-schemes').classList.add('hidden');
+      document.getElementById('modal-edit-free-schemes').classList.remove('flex');
+      AppState.editingSchemeTiers = [];
+    }
+
+    function renderSchemeTierRows() {
+      const container = document.getElementById('scheme-tier-rows-container');
+      if (!container) return;
+
+      container.innerHTML = '';
+      if (AppState.editingSchemeTiers.length === 0) {
+        container.innerHTML = `<p class="text-xs text-slate-500 text-center py-4">No tiers. Click "Add New Scheme Tier" below.</p>`;
+        return;
+      }
+
+      AppState.editingSchemeTiers.forEach((tier, idx) => {
+        const row = document.createElement('div');
+        row.className = 'p-2.5 rounded-2xl bg-surface-850 border border-slate-700/80 space-y-1.5 animate-fade-in';
+        row.innerHTML = `
+          <div class="flex items-center justify-between text-[11px] font-bold text-slate-400">
+            <span>Tier #${idx + 1}</span>
+            <button type="button" onclick="deleteSchemeTierRow(${idx})" class="text-rose-400 hover:text-rose-300 text-[10px] flex items-center gap-1 font-semibold">
+              <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+              <span>Remove</span>
+            </button>
+          </div>
+          <div class="grid grid-cols-2 gap-2">
+            <div>
+              <label class="block text-[10px] text-slate-400 mb-0.5 font-semibold">Buy Qty (ගන්නා ගණන)</label>
+              <input type="number" min="1" value="${tier.buy}" onchange="updateTierValue(${idx}, 'buy', this.value)" class="w-full px-2.5 py-1.5 bg-surface-900 border border-slate-700 rounded-xl text-white font-mono font-bold text-xs focus:outline-none focus:border-brand-500 text-center" />
+            </div>
+            <div>
+              <label class="block text-[10px] text-purple-300 mb-0.5 font-semibold">Free Issues (නොමිලේ)</label>
+              <input type="number" min="0" value="${tier.free}" onchange="updateTierValue(${idx}, 'free', this.value)" class="w-full px-2.5 py-1.5 bg-surface-900 border border-purple-500/40 rounded-xl text-purple-300 font-mono font-bold text-xs focus:outline-none focus:border-purple-400 text-center" />
+            </div>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+      lucide.createIcons();
+    }
+
+    function updateTierValue(idx, field, val) {
+      const num = parseInt(val, 10) || 0;
+      if (AppState.editingSchemeTiers[idx]) {
+        AppState.editingSchemeTiers[idx][field] = Math.max(0, num);
+      }
+    }
+
+    function addSchemeTierRow(buy = 0, free = 0) {
+      AppState.editingSchemeTiers.push({ buy: buy || 50, free: free || 5 });
+      renderSchemeTierRows();
+    }
+
+    function deleteSchemeTierRow(idx) {
+      AppState.editingSchemeTiers.splice(idx, 1);
+      renderSchemeTierRows();
+    }
+
+    function saveCustomFreeSchemes() {
+      const valid = AppState.editingSchemeTiers.filter(t => t.buy > 0 && t.free >= 0);
+      if (valid.length === 0) {
+        showToast('Please specify at least one valid tier!', 'alert-circle');
+        return;
+      }
+
+      // Sort ascending by buy qty
+      valid.sort((a, b) => a.buy - b.buy);
+      AppState.freeSchemes = valid;
+      localStorage.setItem('mobpos_free_schemes', JSON.stringify(AppState.freeSchemes));
+      
+      renderSettingsFreeSchemes();
+      closeEditFreeSchemesModal();
+      showToast('Free Issue Schemes Updated Successfully!', 'check-circle-2');
+      playBeep(880, 0.06);
+    }
+
+    function resetFreeSchemesToDefault() {
+      if (confirm('Free Issue Schemes මුල් (Default 25/2, 50/5, 100/15...) තත්වයට Reset කිරීමට අවශ්‍යද?')) {
+        AppState.freeSchemes = JSON.parse(JSON.stringify(DEFAULT_FREE_SCHEMES));
+        localStorage.setItem('mobpos_free_schemes', JSON.stringify(AppState.freeSchemes));
+        renderSettingsFreeSchemes();
+        showToast('Default Free Schemes Restored', 'rotate-ccw');
+        playBeep(660, 0.05);
+      }
     }
 
     function adjustReturn(delta) {
@@ -1575,16 +2443,73 @@
       playBeep(440, 0.03);
     }
 
+    function setDirectReturn(qty) {
+      const input = document.getElementById('input-item-return');
+      let val = parseInt(input.value, 10) || 0;
+      input.value = val + qty;
+      calcModalLineTotal();
+      playBeep(550, 0.03);
+    }
+
     function calcModalLineTotal() {
       if (!AppState.modalItem) return;
       const qty = parseInt(document.getElementById('input-item-qty').value, 10) || 0;
+      const returnQty = parseInt(document.getElementById('input-item-return').value, 10) || 0;
       const price = Number(AppState.modalItem.retailerPrice) || 0;
       const commPct = Number(AppState.modalItem.commissionPct ?? 5);
-      const lineTotal = qty * price;
-      const commissionEarned = lineTotal * (commPct / 100);
 
-      document.getElementById('modal-line-total').innerText = `LKR ${lineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-      document.getElementById('modal-line-comm').innerText = `LKR ${commissionEarned.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${commPct}%)`;
+      const returnContainer = document.getElementById('return-options-container');
+      if (returnQty > 0) {
+        returnContainer.classList.remove('hidden');
+      } else {
+        returnContainer.classList.add('hidden');
+      }
+
+      let returnUnitPrice = parseFloat(document.getElementById('input-return-unit-price').value);
+      if (isNaN(returnUnitPrice) || returnUnitPrice < 0) {
+        returnUnitPrice = price;
+      }
+
+      const returnType = AppState.modalItemReturnType || 'deduct';
+      const lineGross = qty * price;
+      const returnTotalVal = returnQty * returnUnitPrice;
+      const lineDeduction = (returnType === 'deduct') ? returnTotalVal : 0;
+      const netLineTotal = lineGross - lineDeduction;
+      const lineCommission = netLineTotal * (commPct / 100);
+
+      document.getElementById('modal-line-gross').innerText = `LKR ${lineGross.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      const deductEl = document.getElementById('modal-line-deduct');
+      if (returnQty > 0) {
+        if (returnType === 'deduct') {
+          deductEl.innerText = `- LKR ${returnTotalVal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          deductEl.className = "font-bold text-rose-400 font-mono";
+        } else {
+          deductEl.innerText = `🔄 ${returnQty} Pkts Exchanged (LKR 0.00)`;
+          deductEl.className = "font-bold text-blue-400 font-mono";
+        }
+      } else {
+        deductEl.innerText = `LKR 0.00`;
+        deductEl.className = "font-bold text-slate-400 font-mono";
+      }
+
+      const totalEl = document.getElementById('modal-line-total');
+      if (netLineTotal < 0) {
+        totalEl.innerText = `- LKR ${Math.abs(netLineTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        totalEl.className = "text-base font-black text-rose-400 font-mono";
+      } else {
+        totalEl.innerText = `LKR ${netLineTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        totalEl.className = "text-base font-black text-emerald-400 font-mono";
+      }
+
+      const commEl = document.getElementById('modal-line-comm');
+      if (lineCommission < 0) {
+        commEl.innerText = `- LKR ${Math.abs(lineCommission).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${commPct}%)`;
+        commEl.className = "text-xs font-black text-rose-400 font-mono";
+      } else {
+        commEl.innerText = `LKR ${lineCommission.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })} (${commPct}%)`;
+        commEl.className = "text-xs font-black text-yellow-400 font-mono";
+      }
     }
 
     function commitItemToBill() {
@@ -1597,12 +2522,20 @@
       const commPct = Number(AppState.modalItem.commissionPct ?? 5);
 
       if (qty === 0 && freeIssues === 0 && returnQty === 0) {
-        // If all zero, remove item if present
         AppState.activeBill.items = AppState.activeBill.items.filter(i => i.id !== AppState.modalItem.id);
       } else {
-        const lineTotal = qty * price;
-        const returnLineVal = returnQty * price;
-        const lineCommission = lineTotal * (commPct / 100);
+        const returnType = returnQty > 0 ? (AppState.modalItemReturnType || 'deduct') : 'none';
+        const returnReason = returnQty > 0 ? (AppState.modalItemReturnReason || 'expired') : 'none';
+        let returnUnitPrice = parseFloat(document.getElementById('input-return-unit-price').value);
+        if (isNaN(returnUnitPrice) || returnUnitPrice < 0) {
+          returnUnitPrice = price;
+        }
+
+        const lineGross = qty * price;
+        const returnLineVal = returnQty * returnUnitPrice;
+        const lineDeduction = (returnType === 'deduct') ? returnLineVal : 0;
+        const netLineTotal = lineGross - lineDeduction;
+        const lineCommission = netLineTotal * (commPct / 100);
 
         const existingIndex = AppState.activeBill.items.findIndex(i => i.id === AppState.modalItem.id);
         const itemPayload = {
@@ -1613,8 +2546,13 @@
           qty: qty,
           freeIssues: freeIssues,
           returnQty: returnQty,
-          lineTotal: lineTotal,
+          returnType: returnType,
+          returnReason: returnReason,
+          returnUnitPrice: returnUnitPrice,
           returnLineVal: returnLineVal,
+          lineGross: lineGross,
+          lineDeduction: lineDeduction,
+          lineTotal: netLineTotal,
           lineCommission: lineCommission
         };
 
@@ -1625,25 +2563,31 @@
         }
       }
 
-
       closeItemEntryModal();
       renderPOSItemsGrid();
       updateFloatingCartUI();
       playBeep(750, 0.08);
-      showToast(`${AppState.modalItem.name.slice(0, 18)} added`, 'shopping-bag');
+      showToast(`${AppState.modalItem.name.slice(0, 18)} updated`, 'shopping-bag');
     }
 
 
     // --- 8. Active Bill Management & Direct "SAVE BILL" ---
     function updateFloatingCartUI() {
       const floatingBar = document.getElementById('pos-floating-bar');
-      const totalItemsCount = AppState.activeBill.items.reduce((acc, item) => acc + item.qty, 0);
-      const totalBillAmount = AppState.activeBill.items.reduce((acc, item) => acc + item.lineTotal, 0);
+      const netBillAmount = AppState.activeBill.items.reduce((acc, item) => acc + (item.lineTotal || 0), 0);
 
       if (AppState.activeBill.items.length > 0 && AppState.currentView === 'pos') {
         floatingBar.classList.remove('translate-y-24', 'opacity-0');
         document.getElementById('floating-cart-badge').innerText = AppState.activeBill.items.length;
-        document.getElementById('floating-cart-total').innerText = `LKR ${totalBillAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        
+        const totalEl = document.getElementById('floating-cart-total');
+        if (netBillAmount < 0) {
+          totalEl.innerText = `- LKR ${Math.abs(netBillAmount).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          totalEl.className = "text-sm font-black text-rose-400 font-mono truncate";
+        } else {
+          totalEl.innerText = `LKR ${netBillAmount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+          totalEl.className = "text-sm font-black text-emerald-400 font-mono truncate";
+        }
       } else {
         floatingBar.classList.add('translate-y-24', 'opacity-0');
       }
@@ -1670,29 +2614,55 @@
         return;
       }
 
+      let totalGross = 0;
+      let totalReturnDeductions = 0;
+      let totalExchanges = 0;
       let totalFree = 0;
-      let totalReturn = 0;
-      let totalSales = 0;
+      let totalReturns = 0;
+      let totalCommission = 0;
+      let netBillTotal = 0;
 
       AppState.activeBill.items.forEach(item => {
-        totalFree += item.freeIssues;
-        totalReturn += item.returnQty;
-        totalSales += item.lineTotal;
+        const gross = item.lineGross ?? (item.qty * item.retailerPrice);
+        const deduction = item.lineDeduction ?? 0;
+        const lineNet = item.lineTotal ?? (gross - deduction);
+        const comm = item.lineCommission ?? (lineNet * ((item.commissionPct ?? 5) / 100));
+
+        totalGross += gross;
+        totalReturnDeductions += deduction;
+        if (item.returnType === 'exchange') {
+          totalExchanges += (item.returnQty || 0);
+        }
+        totalFree += (item.freeIssues || 0);
+        totalReturns += (item.returnQty || 0);
+        totalCommission += comm;
+        netBillTotal += lineNet;
 
         const row = document.createElement('div');
-        row.className = 'bg-surface-850 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between';
+        row.className = 'bg-surface-850 p-2.5 rounded-xl border border-slate-800 flex items-center justify-between shadow-sm';
+        
+        let returnText = '';
+        if (item.returnQty > 0) {
+          const reasonLabel = item.returnReason === 'expired' ? 'Expired' : 'Unsold';
+          if (item.returnType === 'deduct') {
+            returnText = `<span class="text-rose-400 font-semibold">Ret: ${item.returnQty} @ ${item.returnUnitPrice.toFixed(0)} (-LKR ${item.returnLineVal.toFixed(2)}) [${reasonLabel}]</span>`;
+          } else {
+            returnText = `<span class="text-blue-400 font-semibold">Exch: ${item.returnQty} pkts (🔄 1-to-1) [${reasonLabel}]</span>`;
+          }
+        }
+
         row.innerHTML = `
           <div class="min-w-0 flex-1 pr-2">
             <h5 class="text-xs font-bold text-white truncate">${item.name}</h5>
-            <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
-              <span>Qty: <strong class="text-slate-200">${item.qty}</strong></span>
-              ${item.freeIssues > 0 ? `<span class="text-purple-400">Free: <strong>${item.freeIssues}</strong></span>` : ''}
-              ${item.returnQty > 0 ? `<span class="text-amber-400">Ret: <strong>${item.returnQty}</strong></span>` : ''}
+            <div class="text-[10px] text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
+              ${item.qty > 0 ? `<span>Sold: <strong class="text-slate-200">${item.qty} × ${item.retailerPrice.toFixed(0)}</strong></span>` : '<span class="text-slate-500 font-medium">Return Only</span>'}
+              ${item.freeIssues > 0 ? `<span class="text-purple-400 font-semibold">Free: ${item.freeIssues}</span>` : ''}
+              ${returnText}
             </div>
           </div>
-          <div class="text-right flex items-center gap-2">
-            <div class="text-xs font-black text-emerald-400 font-mono">
-              LKR ${item.lineTotal.toFixed(2)}
+          <div class="text-right flex items-center gap-2 shrink-0">
+            <div class="text-xs font-black ${lineNet < 0 ? 'text-rose-400' : 'text-emerald-400'} font-mono">
+              ${lineNet < 0 ? '- LKR ' + Math.abs(lineNet).toFixed(2) : 'LKR ' + lineNet.toFixed(2)}
             </div>
             <button onclick="removeItemFromBill(${item.id})" class="text-rose-400 hover:text-rose-300 p-1">
               <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -1703,9 +2673,22 @@
       });
 
       document.getElementById('bill-summary-count-label').innerText = `${AppState.activeBill.items.length} items in active bill`;
+      document.getElementById('bill-summary-gross').innerText = `LKR ${totalGross.toFixed(2)}`;
+      document.getElementById('bill-summary-return-deduct').innerText = `- LKR ${totalReturnDeductions.toFixed(2)}`;
+      document.getElementById('bill-summary-exchange').innerText = `${totalExchanges} Pkts (🔄)`;
       document.getElementById('bill-summary-free').innerText = `${totalFree} Pkts`;
-      document.getElementById('bill-summary-return').innerText = `${totalReturn} Pkts`;
-      document.getElementById('bill-summary-total').innerText = `LKR ${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('bill-summary-return').innerText = `${totalReturns} Pkts`;
+      document.getElementById('bill-summary-commission').innerText = `LKR ${totalCommission.toFixed(2)}`;
+      
+      const totalEl = document.getElementById('bill-summary-total');
+      if (netBillTotal < 0) {
+        totalEl.innerText = `- LKR ${Math.abs(netBillTotal).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        totalEl.className = "text-rose-400 font-mono text-base font-black";
+      } else {
+        totalEl.innerText = `LKR ${netBillTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        totalEl.className = "text-emerald-400 font-mono text-base font-black";
+      }
+
       lucide.createIcons();
     }
 
@@ -1737,7 +2720,6 @@
       }
 
       const now = new Date();
-      // Format timestamps: exact YYYY-MM-DD HH:mm:ss
       const year = now.getFullYear();
       const month = String(now.getMonth() + 1).padStart(2, '0');
       const day = String(now.getDate()).padStart(2, '0');
@@ -1750,13 +2732,18 @@
       const timestampStr = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
 
       // Calculate Bill Aggregates
-      const totalSales = AppState.activeBill.items.reduce((sum, item) => sum + item.lineTotal, 0);
+      const grossSales = AppState.activeBill.items.reduce((sum, item) => sum + (item.lineGross ?? (item.qty * item.retailerPrice)), 0);
+      const returnDeductionValue = AppState.activeBill.items.reduce((sum, item) => sum + (item.lineDeduction ?? 0), 0);
+      const netSales = grossSales - returnDeductionValue;
       const totalFree = AppState.activeBill.items.reduce((sum, item) => sum + item.freeIssues, 0);
       const totalReturn = AppState.activeBill.items.reduce((sum, item) => sum + item.returnQty, 0);
+      const totalExchanges = AppState.activeBill.items.filter(i => i.returnType === 'exchange').reduce((sum, item) => sum + item.returnQty, 0);
       const totalReturnVal = AppState.activeBill.items.reduce((sum, item) => sum + (item.returnLineVal || 0), 0);
-      // Per-item commission calculation (each item uses its own commission %)
-      const salaryEarned = AppState.activeBill.items.reduce((sum, item) => sum + (item.lineCommission || (item.lineTotal * ((item.commissionPct ?? 5) / 100))), 0);
 
+      // Per-item commission calculation (net of returns)
+      const salaryEarned = AppState.activeBill.items.reduce((sum, item) => {
+        return sum + (item.lineCommission ?? (item.lineTotal * ((item.commissionPct ?? 5) / 100)));
+      }, 0);
 
       // Generate Bill Number: BILL-YYYYMMDD-COUNT
       const todaySalesCount = await db.sales.where('date').equals(dateStr).count();
@@ -1767,10 +2754,14 @@
         timestamp: timestampStr,
         date: dateStr,
         yearMonth: yearMonthStr,
-        totalSales: totalSales,
+        totalSales: netSales, // Backward compatibility
+        grossSales: grossSales,
+        netSales: netSales,
         freeIssuesCount: totalFree,
         returnCount: totalReturn,
+        exchangeCount: totalExchanges,
         returnTotalValue: totalReturnVal,
+        returnDeductionValue: returnDeductionValue,
         salaryEarned: salaryEarned,
         itemsJson: JSON.stringify(AppState.activeBill.items)
       };
@@ -1783,42 +2774,45 @@
       if (existingSummary) {
         await db.dailySummaries.put({
           date: dateStr,
-          totalSales: existingSummary.totalSales + totalSales,
+          totalSales: (existingSummary.totalSales || 0) + netSales,
+          grossSales: (existingSummary.grossSales || existingSummary.totalSales || 0) + grossSales,
           totalBills: existingSummary.totalBills + 1,
           totalFreeIssues: existingSummary.totalFreeIssues + totalFree,
           totalReturns: existingSummary.totalReturns + totalReturn,
+          totalExchanges: (existingSummary.totalExchanges || 0) + totalExchanges,
           returnTotalValue: (existingSummary.returnTotalValue || 0) + totalReturnVal,
-          salaryEarned: existingSummary.salaryEarned + salaryEarned
+          returnDeductionValue: (existingSummary.returnDeductionValue || 0) + returnDeductionValue,
+          salaryEarned: (existingSummary.salaryEarned || 0) + salaryEarned
         });
       } else {
         await db.dailySummaries.put({
           date: dateStr,
-          totalSales: totalSales,
+          totalSales: netSales,
+          grossSales: grossSales,
           totalBills: 1,
           totalFreeIssues: totalFree,
           totalReturns: totalReturn,
+          totalExchanges: totalExchanges,
           returnTotalValue: totalReturnVal,
+          returnDeductionValue: returnDeductionValue,
           salaryEarned: salaryEarned
         });
       }
 
-      // Reset Active Bill State immediately
+      // Reset Active Bill State
       AppState.activeBill.items = [];
 
-      // Close modal if open
       const modal = document.getElementById('modal-bill-summary');
       if (!modal.classList.contains('hidden')) {
         toggleBillModal();
       }
 
-      // Update UI
       renderPOSItemsGrid();
       updateFloatingCartUI();
       await refreshDashboard();
 
-      // Audio & Visual feedback
       playSuccessChime();
-      showToast(`Bill ${billNo} Saved! (5% Comm: LKR ${salaryEarned.toFixed(2)})`, 'check-circle-2');
+      showToast(`Bill ${billNo} Saved! (Net: LKR ${netSales.toFixed(2)} | Comm: LKR ${salaryEarned.toFixed(2)})`, 'check-circle-2');
     }
 
 
@@ -1829,29 +2823,42 @@
       const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
       const currentMonthName = now.toLocaleString('default', { month: 'long' });
 
-      // 1. Fetch Today's Bills (for accurate salary from per-item commission)
+      // Fetch Today's Bills
       const todayBillsList = await db.sales.where('date').equals(todayStr).reverse().toArray();
       const todaySummary = await db.dailySummaries.get(todayStr);
-      const todaySales = todaySummary ? todaySummary.totalSales : 0;
+      
+      const todayNetSales = todaySummary ? (todaySummary.totalSales ?? todaySummary.netSales ?? 0) : 0;
+      const todayGrossSales = todaySummary ? (todaySummary.grossSales ?? todayNetSales) : 0;
+      const todayDeductions = todaySummary ? (todaySummary.returnDeductionValue ?? 0) : 0;
       const todayBills = todaySummary ? todaySummary.totalBills : 0;
       const todayFree = todaySummary ? todaySummary.totalFreeIssues : 0;
       const todayReturns = todaySummary ? todaySummary.totalReturns : 0;
-      // Use actual salaryEarned stored in summary (per-item commission)
+      const todayExchanges = todaySummary ? (todaySummary.totalExchanges ?? 0) : 0;
       const todaySalary = todaySummary ? (todaySummary.salaryEarned || 0) : 0;
 
       // Update Header quick stat
-      document.getElementById('header-today-sales').innerText = `LKR ${todaySales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('header-today-sales').innerText = `LKR ${todayNetSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
       // Update Dashboard Metric Cards
-      document.getElementById('dash-today-sales').innerText = `LKR ${todaySales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('dash-today-sales').innerText = `LKR ${todayNetSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const subSalesEl = document.getElementById('dash-today-sales-sub');
+      if (subSalesEl) {
+        subSalesEl.innerText = `Gross: ${todayGrossSales.toFixed(2)} | Ret: -${todayDeductions.toFixed(2)}`;
+      }
+
       document.getElementById('dash-bill-count').innerHTML = `${todayBills} <span class="text-xs font-medium text-slate-400">Bills</span>`;
       document.getElementById('dash-free-count').innerHTML = `${todayFree} <span class="text-xs font-medium text-slate-400">Pkts</span>`;
       document.getElementById('dash-return-count').innerHTML = `${todayReturns} <span class="text-xs font-medium text-slate-400">Pkts</span>`;
+      
+      const subRetEl = document.getElementById('dash-return-sub');
+      if (subRetEl) {
+        subRetEl.innerText = `${todayExchanges} Exch | ${todayReturns - todayExchanges} Deduct (-LKR ${todayDeductions.toFixed(0)})`;
+      }
 
-      // 2. Today's Commission Salary (actual per-item rate)
+      // Today's Net Commission
       document.getElementById('dash-today-salary').innerText = `LKR ${todaySalary.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-      // 3. THIS MONTH'S CUMULATIVE SALARY ACCUMULATOR (Resets on the 1st of each month)
+      // THIS MONTH'S CUMULATIVE SALARY ACCUMULATOR
       const monthBills = await db.sales.where('yearMonth').equals(currentYearMonth).toArray();
       const monthSalaryTotal = monthBills.reduce((sum, b) => sum + (b.salaryEarned || 0), 0);
       document.getElementById('dash-cumulative-salary').innerText = `LKR ${monthSalaryTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
@@ -1859,10 +2866,7 @@
       const monthTitleEl = document.getElementById('dash-month-salary-title');
       if (monthTitleEl) monthTitleEl.innerText = `${currentMonthName} Total Salary`;
 
-      // 4. Render Today's Items Sold
       renderTodayItemsSold(todayBillsList);
-
-      // 5. Render Today's Saved Bills List
       renderTodayBillsList(todayBillsList);
     }
 
@@ -1872,18 +2876,24 @@
       const countPill = document.getElementById('today-items-count-pill');
       if (!container) return;
 
-      // Aggregate items sold today across all bills
       const itemMap = {};
       bills.forEach(bill => {
         const items = JSON.parse(bill.itemsJson || '[]');
         items.forEach(i => {
           if (!itemMap[i.id]) {
-            itemMap[i.id] = { name: i.name, qty: 0, freeIssues: 0, returnQty: 0, totalSales: 0 };
+            itemMap[i.id] = { name: i.name, qty: 0, freeIssues: 0, returnQty: 0, returnDeductQty: 0, returnExchangeQty: 0, grossSales: 0, returnDeduction: 0, netSales: 0 };
           }
           itemMap[i.id].qty += (i.qty || 0);
           itemMap[i.id].freeIssues += (i.freeIssues || 0);
           itemMap[i.id].returnQty += (i.returnQty || 0);
-          itemMap[i.id].totalSales += (i.lineTotal || 0);
+          if (i.returnType === 'exchange') {
+            itemMap[i.id].returnExchangeQty += (i.returnQty || 0);
+          } else {
+            itemMap[i.id].returnDeductQty += (i.returnQty || 0);
+            itemMap[i.id].returnDeduction += (i.returnLineVal || (i.returnQty * i.retailerPrice) || 0);
+          }
+          itemMap[i.id].grossSales += (i.lineGross ?? (i.qty * i.retailerPrice));
+          itemMap[i.id].netSales += (i.lineTotal ?? ((i.qty * i.retailerPrice) - (i.lineDeduction || 0)));
         });
       });
 
@@ -1899,16 +2909,27 @@
       itemArr.forEach(item => {
         const row = document.createElement('div');
         row.className = 'px-3 py-2 flex items-center justify-between';
+        
+        let retInfo = '';
+        if (item.returnQty > 0) {
+          retInfo = `<span class="text-amber-400">Ret: <strong>${item.returnQty}</strong> (${item.returnExchangeQty > 0 ? `${item.returnExchangeQty} Exch ` : ''}${item.returnDeductQty > 0 ? `${item.returnDeductQty} Ded` : ''})</span>`;
+        }
+
         row.innerHTML = `
           <div class="flex-1 min-w-0 pr-2">
             <h5 class="text-[11px] font-bold text-white truncate">${item.name}</h5>
-            <div class="text-[10px] text-slate-400 flex items-center gap-2 mt-0.5">
-              <span class="text-emerald-300">Sold: <strong>${item.qty}</strong></span>
+            <div class="text-[10px] text-slate-400 flex flex-wrap items-center gap-2 mt-0.5">
+              ${item.qty > 0 ? `<span class="text-emerald-300">Sold: <strong>${item.qty}</strong></span>` : '<span class="text-slate-500">No new sales</span>'}
               ${item.freeIssues > 0 ? `<span class="text-purple-400">Free: <strong>${item.freeIssues}</strong></span>` : ''}
-              ${item.returnQty > 0 ? `<span class="text-amber-400">Ret: <strong>${item.returnQty}</strong></span>` : ''}
+              ${retInfo}
             </div>
           </div>
-          <div class="text-xs font-black text-emerald-400 font-mono shrink-0">LKR ${item.totalSales.toFixed(2)}</div>
+          <div class="text-right shrink-0">
+            <div class="text-xs font-black ${item.netSales < 0 ? 'text-rose-400' : 'text-emerald-400'} font-mono">
+              ${item.netSales < 0 ? '- LKR ' + Math.abs(item.netSales).toFixed(2) : 'LKR ' + item.netSales.toFixed(2)}
+            </div>
+            ${item.returnDeduction > 0 ? `<div class="text-[9px] text-rose-400 font-mono">-LKR ${item.returnDeduction.toFixed(2)} ded</div>` : ''}
+          </div>
         `;
         container.appendChild(row);
       });
@@ -1933,7 +2954,16 @@
 
       bills.forEach(bill => {
         const items = JSON.parse(bill.itemsJson || '[]');
-        const itemsSummaryText = items.map(i => `${i.name} (x${i.qty})`).join(', ');
+        const itemsSummaryText = items.map(i => {
+          let str = `${i.name}`;
+          if (i.qty > 0) str += ` (x${i.qty})`;
+          if (i.returnQty > 0) str += ` [Ret:${i.returnQty}${i.returnType === 'exchange' ? '🔄' : ''}]`;
+          return str;
+        }).join(', ');
+
+        const netBill = Number(bill.netSales ?? bill.totalSales ?? 0);
+        const grossBill = Number(bill.grossSales ?? netBill);
+        const retDeduct = Number(bill.returnDeductionValue ?? 0);
 
         const card = document.createElement('div');
         card.className = 'bg-surface-850 p-3 rounded-2xl border border-slate-800 hover:border-slate-700 transition shadow-sm space-y-2';
@@ -1944,8 +2974,11 @@
               <span class="text-[10px] text-slate-400 font-mono">${bill.timestamp.split(' ')[1] || ''}</span>
             </div>
             <div class="flex items-center gap-2 shrink-0">
-              <div class="text-xs font-black text-emerald-400 font-mono">
-                LKR ${Number(bill.totalSales).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+              <div class="text-right">
+                <div class="text-xs font-black ${netBill < 0 ? 'text-rose-400' : 'text-emerald-400'} font-mono">
+                  ${netBill < 0 ? '- LKR ' + Math.abs(netBill).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : 'LKR ' + netBill.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                </div>
+                ${retDeduct > 0 ? `<div class="text-[9px] text-rose-400 font-mono">-LKR ${retDeduct.toFixed(2)} ret</div>` : ''}
               </div>
               <button onclick="deleteSavedBill(${bill.id})" class="touch-press w-7 h-7 rounded-lg bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 text-rose-400 flex items-center justify-center" title="Delete Bill">
                 <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
@@ -1956,9 +2989,9 @@
           <p class="text-[11px] text-slate-300 line-clamp-1">${itemsSummaryText}</p>
 
           <div class="flex items-center justify-between text-[10px] text-slate-400 pt-1.5 border-t border-slate-800/80">
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-2">
               ${bill.freeIssuesCount > 0 ? `<span class="text-purple-400 font-medium">Free: ${bill.freeIssuesCount} Pkts</span>` : ''}
-              ${bill.returnCount > 0 ? `<span class="text-amber-400 font-medium">Ret: ${bill.returnCount} Pkts</span>` : ''}
+              ${bill.returnCount > 0 ? `<span class="text-amber-400 font-medium">Ret: ${bill.returnCount} Pkts ${bill.exchangeCount > 0 ? `(${bill.exchangeCount} 🔄)` : ''}</span>` : ''}
             </div>
             <div class="text-yellow-400 font-mono font-bold">
               Comm: LKR ${(bill.salaryEarned || 0).toFixed(2)}
@@ -1980,22 +3013,22 @@
       if (!bill) return;
 
       const dateStr = bill.date;
-
-      // Remove bill from sales
       await db.sales.delete(billId);
 
-      // Recalculate dailySummaries from remaining bills for that date
       const remainingBills = await db.sales.where('date').equals(dateStr).toArray();
       if (remainingBills.length === 0) {
         await db.dailySummaries.delete(dateStr);
       } else {
-        const totalSales = remainingBills.reduce((s, b) => s + (b.totalSales || 0), 0);
+        const totalSales = remainingBills.reduce((s, b) => s + (b.netSales ?? b.totalSales ?? 0), 0);
+        const grossSales = remainingBills.reduce((s, b) => s + (b.grossSales ?? b.totalSales ?? 0), 0);
         const totalBills = remainingBills.length;
         const totalFreeIssues = remainingBills.reduce((s, b) => s + (b.freeIssuesCount || 0), 0);
         const totalReturns = remainingBills.reduce((s, b) => s + (b.returnCount || 0), 0);
+        const totalExchanges = remainingBills.reduce((s, b) => s + (b.exchangeCount || 0), 0);
         const returnTotalValue = remainingBills.reduce((s, b) => s + (b.returnTotalValue || 0), 0);
+        const returnDeductionValue = remainingBills.reduce((s, b) => s + (b.returnDeductionValue || 0), 0);
         const salaryEarned = remainingBills.reduce((s, b) => s + (b.salaryEarned || 0), 0);
-        await db.dailySummaries.put({ date: dateStr, totalSales, totalBills, totalFreeIssues, totalReturns, returnTotalValue, salaryEarned });
+        await db.dailySummaries.put({ date: dateStr, totalSales, grossSales, totalBills, totalFreeIssues, totalReturns, totalExchanges, returnTotalValue, returnDeductionValue, salaryEarned });
       }
 
       showToast(`Bill deleted & totals recalculated`, 'trash-2');
@@ -2004,8 +3037,6 @@
         await loadReportData();
       }
     }
-
-
 
 
     // --- 10. Reporting & PDF Export Module ---
@@ -2034,13 +3065,11 @@
       const allBills = await db.sales.reverse().toArray();
 
       if (AppState.reportPeriod === 'weekly') {
-        // Calculate start of current week (Monday)
         const d = new Date(now);
         const day = d.getDay();
-        const diff = d.getDate() - (day === 0 ? 6 : day - 1); // Monday
+        const diff = d.getDate() - (day === 0 ? 6 : day - 1);
         d.setDate(diff);
         let weekStartStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-        // If week start is before 1st of current month, clamp to 1st of month so new month starts clean
         if (weekStartStr < startOfMonthStr) {
           weekStartStr = startOfMonthStr;
         }
@@ -2059,22 +3088,30 @@
 
       document.getElementById('report-period-label').innerText = periodLabel;
 
-
-      // Aggregations
-      const totalSales = filteredBills.reduce((acc, b) => acc + (b.totalSales || 0), 0);
+      const totalNetSales = filteredBills.reduce((acc, b) => acc + (b.netSales ?? b.totalSales ?? 0), 0);
+      const totalGrossSales = filteredBills.reduce((acc, b) => acc + (b.grossSales ?? b.totalSales ?? 0), 0);
+      const totalReturnDeductions = filteredBills.reduce((acc, b) => acc + (b.returnDeductionValue ?? 0), 0);
       const totalBills = filteredBills.length;
       const totalFree = filteredBills.reduce((acc, b) => acc + (b.freeIssuesCount || 0), 0);
       const totalReturns = filteredBills.reduce((acc, b) => acc + (b.returnCount || 0), 0);
-      const totalReturnsVal = filteredBills.reduce((acc, b) => acc + (b.returnTotalValue || 0), 0);
+      const totalExchanges = filteredBills.reduce((acc, b) => acc + (b.exchangeCount || 0), 0);
       const totalSalary = filteredBills.reduce((acc, b) => acc + (b.salaryEarned || 0), 0);
 
-      // Update KPI Cards
-      document.getElementById('rep-total-sales').innerText = `LKR ${totalSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      document.getElementById('rep-total-sales').innerText = `LKR ${totalNetSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const subSalesEl = document.getElementById('rep-total-sales-sub');
+      if (subSalesEl) {
+        subSalesEl.innerText = `Gross: ${totalGrossSales.toFixed(2)} | Ret: -${totalReturnDeductions.toFixed(2)}`;
+      }
+
       document.getElementById('rep-bill-count').innerText = `${totalBills} Transactions`;
       document.getElementById('rep-total-salary').innerText = `LKR ${totalSalary.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       document.getElementById('rep-total-free').innerText = `${totalFree} Pkts`;
       document.getElementById('rep-total-returns').innerText = `${totalReturns} Pkts`;
-      document.getElementById('rep-total-returns-val').innerText = `LKR ${totalReturnsVal.toFixed(2)} Val`;
+      
+      const subRetValEl = document.getElementById('rep-total-returns-val');
+      if (subRetValEl) {
+        subRetValEl.innerText = `${totalExchanges} Exch | -LKR ${totalReturnDeductions.toFixed(2)} Ded`;
+      }
 
       // Aggregate Item Breakdown
       const itemMap = {};
@@ -2089,34 +3126,50 @@
               totalQty: 0,
               totalFree: 0,
               totalReturn: 0,
-              totalSales: 0
+              totalExchanges: 0,
+              totalGross: 0,
+              totalReturnDeduct: 0,
+              totalNetSales: 0,
+              totalCommission: 0
             };
           }
-          itemMap[i.id].totalQty += i.qty;
-          itemMap[i.id].totalFree += i.freeIssues;
-          itemMap[i.id].totalReturn += i.returnQty;
-          itemMap[i.id].totalSales += i.lineTotal;
+          const gross = (i.lineGross ?? (i.qty * i.retailerPrice));
+          const deduct = (i.lineDeduction ?? 0);
+          const net = (i.lineTotal ?? (gross - deduct));
+          const comm = (i.lineCommission ?? (net * ((i.commissionPct ?? 5) / 100)));
+
+          itemMap[i.id].totalQty += (i.qty || 0);
+          itemMap[i.id].totalFree += (i.freeIssues || 0);
+          itemMap[i.id].totalReturn += (i.returnQty || 0);
+          if (i.returnType === 'exchange') {
+            itemMap[i.id].totalExchanges += (i.returnQty || 0);
+          }
+          itemMap[i.id].totalGross += gross;
+          itemMap[i.id].totalReturnDeduct += deduct;
+          itemMap[i.id].totalNetSales += net;
+          itemMap[i.id].totalCommission += comm;
         });
       });
 
-      // Render Itemized Table
       const itemsTbody = document.getElementById('rep-items-tbody');
       itemsTbody.innerHTML = '';
       const itemArray = Object.values(itemMap);
 
       if (itemArray.length === 0) {
-        itemsTbody.innerHTML = `<tr><td colspan="6" class="text-center py-4 text-slate-500">No items sold in this period</td></tr>`;
+        itemsTbody.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-slate-500">No items sold in this period</td></tr>`;
       } else {
         itemArray.forEach(item => {
           const tr = document.createElement('tr');
           tr.className = 'hover:bg-slate-800/40';
           tr.innerHTML = `
-            <td class="p-2.5 font-sans font-medium text-slate-200">${item.name}</td>
-            <td class="p-2.5 text-center text-slate-400">${item.retailerPrice.toFixed(2)}</td>
-            <td class="p-2.5 text-center text-white font-bold">${item.totalQty}</td>
-            <td class="p-2.5 text-center text-purple-400">${item.totalFree}</td>
-            <td class="p-2.5 text-center text-amber-400">${item.totalReturn}</td>
-            <td class="p-2.5 text-right text-emerald-400 font-bold">${item.totalSales.toFixed(2)}</td>
+            <td class="p-2 font-sans font-medium text-slate-200">${item.name}</td>
+            <td class="p-2 text-center text-slate-400">${item.retailerPrice.toFixed(2)}</td>
+            <td class="p-2 text-center text-white font-bold">${item.totalQty}</td>
+            <td class="p-2 text-center text-purple-400">${item.totalFree}</td>
+            <td class="p-2 text-center text-amber-400">${item.totalReturn} ${item.totalExchanges > 0 ? `(${item.totalExchanges}🔄)` : ''}</td>
+            <td class="p-2 text-right text-slate-300 font-mono">${item.totalGross.toFixed(2)}</td>
+            <td class="p-2 text-right text-rose-400 font-mono">${item.totalReturnDeduct > 0 ? '-' + item.totalReturnDeduct.toFixed(2) : '0.00'}</td>
+            <td class="p-2 text-right ${item.totalNetSales < 0 ? 'text-rose-400' : 'text-emerald-400'} font-bold font-mono">${item.totalNetSales.toFixed(2)}</td>
           `;
           itemsTbody.appendChild(tr);
         });
@@ -2132,7 +3185,15 @@
       } else {
         filteredBills.forEach(bill => {
           const items = JSON.parse(bill.itemsJson || '[]');
-          const itemText = items.map(i => `${i.name} (x${i.qty})`).join(', ');
+          const itemText = items.map(i => {
+            let s = `${i.name}`;
+            if (i.qty > 0) s += ` (x${i.qty})`;
+            if (i.returnQty > 0) s += ` [Ret:${i.returnQty}]`;
+            return s;
+          }).join(', ');
+
+          const net = Number(bill.netSales ?? bill.totalSales ?? 0);
+          const deduct = Number(bill.returnDeductionValue ?? 0);
 
           const itemDiv = document.createElement('div');
           itemDiv.className = 'py-2.5 flex items-center justify-between text-xs hover:bg-slate-800/30 px-2 rounded-xl transition';
@@ -2146,7 +3207,8 @@
             </div>
             <div class="text-right flex items-center gap-2 shrink-0">
               <div>
-                <div class="font-bold text-emerald-400 font-mono">LKR ${bill.totalSales.toFixed(2)}</div>
+                <div class="font-bold ${net < 0 ? 'text-rose-400' : 'text-emerald-400'} font-mono">LKR ${net.toFixed(2)}</div>
+                ${deduct > 0 ? `<div class="text-[9px] text-rose-400 font-mono">-LKR ${deduct.toFixed(2)} ret</div>` : ''}
                 <div class="text-[10px] text-yellow-400 font-mono">Comm: LKR ${(bill.salaryEarned || 0).toFixed(2)}</div>
               </div>
               <button onclick="deleteSavedBill(${bill.id})" class="touch-press w-7 h-7 rounded-lg bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 text-rose-400 flex items-center justify-center" title="Delete Bill">
@@ -2159,11 +3221,10 @@
         lucide.createIcons();
       }
 
-      // Save for PDF export
       AppState.lastFilteredBills = filteredBills;
       AppState.lastItemBreakdown = itemArray;
       AppState.lastPeriodLabel = periodLabel;
-      AppState.lastTotals = { totalSales, totalBills, totalFree, totalReturns, totalSalary };
+      AppState.lastTotals = { totalGrossSales, totalReturnDeductions, totalNetSales, totalBills, totalFree, totalReturns, totalExchanges, totalSalary };
     }
 
 
@@ -2177,7 +3238,6 @@
 
       showToast('Generating PDF Report...', 'file-down');
 
-      // Populate hidden HTML template
       const shopName = localStorage.getItem('mobpos_shop_name') || 'MOB POS Sales';
       const repName = localStorage.getItem('mobpos_rep_name') || 'Sales Agent';
       const now = new Date();
@@ -2188,41 +3248,47 @@
       document.getElementById('pdf-period-text').innerText = `Report Period: ${AppState.lastPeriodLabel || 'Weekly'}`;
       document.getElementById('pdf-gen-date').innerText = `Generated: ${timestampStr}`;
 
-      const totals = AppState.lastTotals || { totalSales: 0, totalBills: 0, totalFree: 0, totalReturns: 0, totalSalary: 0 };
-      document.getElementById('pdf-kpi-sales').innerText = `LKR ${totals.totalSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      const totals = AppState.lastTotals || { totalGrossSales: 0, totalReturnDeductions: 0, totalNetSales: 0, totalBills: 0, totalFree: 0, totalReturns: 0, totalSalary: 0 };
+      
+      const kpiGross = document.getElementById('pdf-kpi-gross');
+      if (kpiGross) kpiGross.innerText = `LKR ${totals.totalGrossSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      
+      const kpiRetDed = document.getElementById('pdf-kpi-ret-deduct');
+      if (kpiRetDed) kpiRetDed.innerText = `- LKR ${totals.totalReturnDeductions.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+
+      document.getElementById('pdf-kpi-sales').innerText = `LKR ${totals.totalNetSales.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       document.getElementById('pdf-kpi-salary').innerText = `LKR ${totals.totalSalary.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
       document.getElementById('pdf-kpi-bills').innerText = `${totals.totalBills} Bills`;
       document.getElementById('pdf-kpi-free').innerText = `${totals.totalFree} Pkts`;
       document.getElementById('pdf-kpi-returns').innerText = `${totals.totalReturns} Pkts`;
 
-      // Item Table - with commission % and total commission columns
+      // Item Table
       const pdfItemTbody = document.getElementById('pdf-items-tbody');
       pdfItemTbody.innerHTML = '';
       (AppState.lastItemBreakdown || []).forEach((item, idx) => {
         const bg = idx % 2 === 0 ? '#ffffff' : '#f8fafc';
         const commPct = item.commissionPct ?? 5;
-        const totalComm = (item.totalSales * (commPct / 100));
         const row = `
           <tr style="background: ${bg}; border-bottom: 1px solid #e2e8f0;">
-            <td style="padding: 6px 10px; font-weight: 600; color: #1e293b;">${item.name}</td>
-            <td style="padding: 6px 8px; text-align: right; color: #475569;">${item.retailerPrice.toFixed(2)}</td>
-            <td style="padding: 6px 6px; text-align: center; color: #a16207; font-weight: 700;">${commPct}%</td>
-            <td style="padding: 6px 6px; text-align: center; font-weight: 700; color: #1d4ed8;">${item.totalQty}</td>
-            <td style="padding: 6px 6px; text-align: center; color: #7e22ce;">${item.totalFree}</td>
-            <td style="padding: 6px 6px; text-align: center; color: #c2410c;">${item.totalReturn}</td>
-            <td style="padding: 6px 10px; text-align: right; font-weight: 700; color: #15803d;">${item.totalSales.toFixed(2)}</td>
-            <td style="padding: 6px 10px; text-align: right; font-weight: 700; color: #a16207;">${totalComm.toFixed(2)}</td>
+            <td style="padding: 5px 8px; font-weight: 600; color: #1e293b;">${item.name}</td>
+            <td style="padding: 5px 6px; text-align: right; color: #475569;">${item.retailerPrice.toFixed(2)}</td>
+            <td style="padding: 5px 4px; text-align: center; color: #a16207; font-weight: 700;">${commPct}%</td>
+            <td style="padding: 5px 4px; text-align: center; font-weight: 700; color: #1d4ed8;">${item.totalQty}</td>
+            <td style="padding: 5px 4px; text-align: center; color: #7e22ce;">${item.totalFree}</td>
+            <td style="padding: 5px 4px; text-align: center; color: #c2410c;">${item.totalReturn}</td>
+            <td style="padding: 5px 6px; text-align: right; color: #475569;">${item.totalGross.toFixed(2)}</td>
+            <td style="padding: 5px 6px; text-align: right; color: #be123c;">${item.totalReturnDeduct > 0 ? '-' + item.totalReturnDeduct.toFixed(2) : '0.00'}</td>
+            <td style="padding: 5px 6px; text-align: right; font-weight: 700; color: #15803d;">${item.totalNetSales.toFixed(2)}</td>
+            <td style="padding: 5px 6px; text-align: right; font-weight: 700; color: #a16207;">${item.totalCommission.toFixed(2)}</td>
           </tr>
         `;
         pdfItemTbody.innerHTML += row;
       });
 
-      // Set footer date
       const footerDateEl = document.getElementById('pdf-footer-date');
       if (footerDateEl) footerDateEl.innerText = `Generated on ${timestampStr}`;
 
       const element = document.getElementById('printable-report');
-
       const opt = {
         margin: [10, 10, 10, 10],
         filename: `POS_Report_${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, '0')}${String(now.getDate()).padStart(2, '0')}.pdf`,
@@ -2240,7 +3306,7 @@
     }
 
 
-    // --- 11. Master Items Management (CRUD) ---
+    // --- 11. Master Items Management (CRUD with Per-Item Free Schemes) ---
     function renderMasterItemsList() {
       const container = document.getElementById('master-items-list');
       const countBadge = document.getElementById('master-items-count-badge');
@@ -2255,16 +3321,30 @@
       AppState.masterItems.forEach(item => {
         const row = document.createElement('div');
         row.className = 'p-3 flex items-center justify-between hover:bg-slate-800/40 transition';
+        
+        let freeBadge = '';
+        if (item.freeSchemeType === 'custom' && Array.isArray(item.freeSchemes) && item.freeSchemes.length > 0) {
+          const firstTier = item.freeSchemes[0];
+          const secondTier = item.freeSchemes[1] || firstTier;
+          const summaryStr = item.freeSchemes.map(t => `${t.buy}/${t.free}`).slice(0, 2).join(', ');
+          freeBadge = `<span class="text-[10px] font-bold px-1.5 py-0.5 bg-purple-500/20 text-purple-300 rounded-md border border-purple-500/30 flex items-center gap-1"><i data-lucide="gift" class="w-3 h-3"></i><span>${summaryStr}</span></span>`;
+        } else if (item.freeSchemeType === 'global') {
+          freeBadge = `<span class="text-[10px] font-bold px-1.5 py-0.5 bg-blue-500/20 text-blue-300 rounded-md border border-blue-500/30 flex items-center gap-1"><i data-lucide="gift" class="w-3 h-3"></i><span>Global Free</span></span>`;
+        } else {
+          freeBadge = `<span class="text-[9px] font-medium px-1.5 py-0.5 bg-slate-800 text-slate-500 rounded-md">No Free</span>`;
+        }
+
         row.innerHTML = `
           <div class="flex-1 min-w-0 pr-2">
             <div class="text-[10px] text-slate-400 font-semibold uppercase">${item.category || 'General'}</div>
-            <h5 class="text-xs font-bold text-white">${item.name}</h5>
-            <div class="flex items-center gap-2 mt-0.5">
+            <h5 class="text-xs font-bold text-white truncate">${item.name}</h5>
+            <div class="flex flex-wrap items-center gap-1.5 mt-1">
               <div class="text-xs font-black text-emerald-400 font-mono">LKR ${Number(item.retailerPrice).toFixed(2)}</div>
               <span class="text-[10px] font-bold px-1.5 py-0.5 bg-yellow-500/20 text-yellow-300 rounded-md border border-yellow-500/30">${(item.commissionPct ?? 5)}% Comm</span>
+              ${freeBadge}
             </div>
           </div>
-          <div class="flex items-center gap-2 shrink-0">
+          <div class="flex items-center gap-1.5 shrink-0">
             <button onclick="editMasterItem(${item.id})" class="p-2 rounded-lg bg-surface-800 hover:bg-slate-700 text-slate-300">
               <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
             </button>
@@ -2278,13 +3358,120 @@
       lucide.createIcons();
     }
 
+    function setItemFreeSchemeType(type) {
+      AppState.editingItemSchemeType = type;
+      const btnCustom = document.getElementById('btn-item-scheme-custom');
+      const btnGlobal = document.getElementById('btn-item-scheme-global');
+      const btnNone = document.getElementById('btn-item-scheme-none');
+      const customArea = document.getElementById('item-free-scheme-custom-area');
+
+      [btnCustom, btnGlobal, btnNone].forEach(b => {
+        if (b) {
+          b.className = "touch-press py-1.5 px-1 rounded-xl bg-surface-800 border border-slate-700 text-slate-400 font-semibold text-center transition text-[11px]";
+        }
+      });
+
+      if (type === 'custom') {
+        if (btnCustom) btnCustom.className = "touch-press py-1.5 px-1 rounded-xl bg-purple-600 border border-purple-400 text-white font-bold text-center transition shadow-sm text-[11px]";
+        if (customArea) customArea.classList.remove('hidden');
+      } else if (type === 'global') {
+        if (btnGlobal) btnGlobal.className = "touch-press py-1.5 px-1 rounded-xl bg-blue-600 border border-blue-400 text-white font-bold text-center transition shadow-sm text-[11px]";
+        if (customArea) customArea.classList.add('hidden');
+      } else {
+        if (btnNone) btnNone.className = "touch-press py-1.5 px-1 rounded-xl bg-slate-700 border border-slate-500 text-white font-bold text-center transition shadow-sm text-[11px]";
+        if (customArea) customArea.classList.add('hidden');
+      }
+    }
+
+    function applyItemSchemePreset(preset) {
+      if (preset === '50_5') {
+        AppState.editingItemSchemeTiers = [
+          { buy: 25, free: 2 },
+          { buy: 50, free: 5 },
+          { buy: 100, free: 15 },
+          { buy: 200, free: 40 },
+          { buy: 300, free: 60 },
+          { buy: 400, free: 80 }
+        ];
+      } else if (preset === '50_4') {
+        AppState.editingItemSchemeTiers = [
+          { buy: 25, free: 2 },
+          { buy: 50, free: 4 },
+          { buy: 100, free: 10 },
+          { buy: 200, free: 25 },
+          { buy: 300, free: 40 },
+          { buy: 400, free: 55 }
+        ];
+      }
+      renderItemSchemeTierRows();
+      playBeep(600, 0.04);
+    }
+
+    function renderItemSchemeTierRows() {
+      const container = document.getElementById('item-scheme-tier-rows');
+      if (!container) return;
+
+      container.innerHTML = '';
+      if (AppState.editingItemSchemeTiers.length === 0) {
+        container.innerHTML = `<p class="text-[11px] text-slate-500 text-center py-2">No tiers defined. Click "+ Add Tier" below.</p>`;
+        return;
+      }
+
+      AppState.editingItemSchemeTiers.forEach((tier, idx) => {
+        const row = document.createElement('div');
+        row.className = 'flex items-center gap-1.5 p-1.5 rounded-xl bg-surface-850 border border-slate-700/70';
+        row.innerHTML = `
+          <div class="flex-1 flex items-center gap-1">
+            <span class="text-[10px] text-slate-400 font-semibold shrink-0">Buy</span>
+            <input type="number" min="1" value="${tier.buy}" onchange="updateItemTierValue(${idx}, 'buy', this.value)" class="w-full px-2 py-1 bg-surface-900 border border-slate-700 rounded-lg text-white font-mono font-bold text-xs focus:outline-none focus:border-brand-500 text-center" />
+          </div>
+          <div class="flex-1 flex items-center gap-1">
+            <span class="text-[10px] text-purple-300 font-semibold shrink-0">Free</span>
+            <input type="number" min="0" value="${tier.free}" onchange="updateItemTierValue(${idx}, 'free', this.value)" class="w-full px-2 py-1 bg-surface-900 border border-purple-500/40 rounded-lg text-purple-300 font-mono font-bold text-xs focus:outline-none focus:border-purple-400 text-center" />
+          </div>
+          <button type="button" onclick="deleteItemSchemeTierRow(${idx})" class="w-7 h-7 rounded-lg bg-rose-950/30 hover:bg-rose-900/50 text-rose-400 flex items-center justify-center shrink-0">
+            <i data-lucide="trash-2" class="w-3.5 h-3.5"></i>
+          </button>
+        `;
+        container.appendChild(row);
+      });
+      lucide.createIcons();
+    }
+
+    function updateItemTierValue(idx, field, val) {
+      const num = parseInt(val, 10) || 0;
+      if (AppState.editingItemSchemeTiers[idx]) {
+        AppState.editingItemSchemeTiers[idx][field] = Math.max(0, num);
+      }
+    }
+
+    function addItemSchemeTierRow(buy = 0, free = 0) {
+      AppState.editingItemSchemeTiers.push({ buy: buy || 50, free: free || 4 });
+      renderItemSchemeTierRows();
+    }
+
+    function deleteItemSchemeTierRow(idx) {
+      AppState.editingItemSchemeTiers.splice(idx, 1);
+      renderItemSchemeTierRows();
+    }
+
     function openAddItemModal() {
       document.getElementById('master-edit-id').value = '';
       document.getElementById('master-item-modal-title').innerText = 'Add Master Item';
       document.getElementById('master-input-name').value = '';
       document.getElementById('master-input-price').value = '';
-      document.getElementById('master-input-category').value = 'Biscuits';
+      document.getElementById('master-input-category').value = 'Groceries';
       document.getElementById('master-input-commission').value = '5';
+
+      AppState.editingItemSchemeType = 'custom';
+      AppState.editingItemSchemeTiers = [
+        { buy: 25, free: 2 },
+        { buy: 50, free: 5 },
+        { buy: 100, free: 15 },
+        { buy: 200, free: 40 }
+      ];
+      setItemFreeSchemeType('custom');
+      renderItemSchemeTierRows();
 
       document.getElementById('modal-master-item').classList.remove('hidden');
       document.getElementById('modal-master-item').classList.add('flex');
@@ -2301,6 +3488,21 @@
       document.getElementById('master-input-category').value = item.category || 'General';
       document.getElementById('master-input-commission').value = (item.commissionPct ?? 5);
 
+      const schemeType = item.freeSchemeType || (item.freeSchemes && item.freeSchemes.length > 0 ? 'custom' : 'none');
+      AppState.editingItemSchemeType = schemeType;
+      AppState.editingItemSchemeTiers = JSON.parse(JSON.stringify(item.freeSchemes || []));
+      
+      if (AppState.editingItemSchemeTiers.length === 0 && schemeType === 'custom') {
+        AppState.editingItemSchemeTiers = [
+          { buy: 25, free: 2 },
+          { buy: 50, free: 5 },
+          { buy: 100, free: 15 }
+        ];
+      }
+
+      setItemFreeSchemeType(schemeType);
+      renderItemSchemeTierRows();
+
       document.getElementById('modal-master-item').classList.remove('hidden');
       document.getElementById('modal-master-item').classList.add('flex');
     }
@@ -2308,6 +3510,7 @@
     function closeMasterItemModal() {
       document.getElementById('modal-master-item').classList.add('hidden');
       document.getElementById('modal-master-item').classList.remove('flex');
+      AppState.editingItemSchemeTiers = [];
     }
 
     async function saveMasterItem() {
@@ -2326,16 +3529,34 @@
         return;
       }
 
+      const freeSchemeType = AppState.editingItemSchemeType || 'none';
+      let freeSchemes = [];
+      if (freeSchemeType === 'custom') {
+        freeSchemes = AppState.editingItemSchemeTiers.filter(t => t.buy > 0 && t.free > 0).sort((a, b) => a.buy - b.buy);
+      }
+
+      const itemPayload = {
+        name,
+        retailerPrice: price,
+        category,
+        commissionPct,
+        freeSchemeType,
+        freeSchemes
+      };
+
       if (editId) {
-        await db.items.update(parseInt(editId, 10), { name, retailerPrice: price, category, commissionPct });
+        await db.items.update(parseInt(editId, 10), itemPayload);
         showToast('Item updated successfully', 'check-circle-2');
       } else {
-        await db.items.add({ name, retailerPrice: price, category, commissionPct });
+        await db.items.add(itemPayload);
         showToast('New item added', 'check-circle-2');
       }
 
       closeMasterItemModal();
       await loadMasterItems();
+      if (AppState.currentView === 'pos') {
+        renderPOSItemsGrid();
+      }
     }
 
     async function deleteMasterItem(id) {
@@ -2343,9 +3564,11 @@
         await db.items.delete(id);
         showToast('Item deleted', 'trash');
         await loadMasterItems();
+        if (AppState.currentView === 'pos') {
+          renderPOSItemsGrid();
+        }
       }
     }
-
 
 
     // --- 12. Security PIN & Shop Settings ---
@@ -2463,34 +3686,23 @@
      * FULL FACTORY RESET: Clears Sales, Reports, Items, 5% Salary & Active Cart
      */
     async function confirmCompleteReset() {
-      const confirmMsg = "⚠️ COMPLETE FACTORY RESET / සම්පූර්ණ RESET කිරීම ⚠️\n\nAre you sure you want to RESET EVERYTHING?\n\nThis will permanently clear:\n• All Sales Records & Bill Transactions\n• All Reports & Itemized Statistics\n• Daily & Cumulative 5% Salary Accumulator (LKR 0.00)\n• Custom Added Items (Restores Clean Default Samples)\n• Active Shopping Cart\n• Resets PIN to 123";
+      const confirmMsg = "⚠️ COMPLETE FACTORY RESET / සම්පූර්ණ RESET කිරීම ⚠️\n\nAre you sure you want to RESET EVERYTHING?\n\nThis will permanently clear:\n• All Sales Records & Bill Transactions\n• All Reports & Itemized Statistics\n• Daily & Cumulative Net Commission Salary (LKR 0.00)\n• Custom Added Items (Restores Clean Default Samples including Soya)\n• Active Shopping Cart\n• Resets PIN to 123";
 
       if (confirm(confirmMsg)) {
         try {
-          // 1. Clear All Sales Transactions
           await db.sales.clear();
-
-          // 2. Clear All Aggregated Daily Summaries & 5% Salary Totals
           await db.dailySummaries.clear();
-
-          // 3. Reset Items Table back to Clean Default Sample Items
           await db.items.clear();
           await db.items.bulkAdd(DEFAULT_ITEMS);
-
-          // 4. Reset PIN to Default 123
           await db.pin.put({ id: 1, pinCode: '123' });
 
-          // 5. Reset Active Cart & App State
           AppState.activeBill.items = [];
           AppState.searchQuery = "";
           AppState.selectedCategory = "all";
-
-          // 6. Reset Cached Reports Data
           AppState.lastFilteredBills = [];
           AppState.lastItemBreakdown = [];
-          AppState.lastTotals = { totalSales: 0, totalBills: 0, totalFree: 0, totalReturns: 0, totalSalary: 0 };
+          AppState.lastTotals = { totalGrossSales: 0, totalReturnDeductions: 0, totalNetSales: 0, totalBills: 0, totalFree: 0, totalReturns: 0, totalSalary: 0 };
 
-          // 7. Refresh all UI Screens and Components
           await loadMasterItems();
           await refreshDashboard();
           await loadReportData();
@@ -2498,7 +3710,7 @@
           renderPOSItemsGrid();
 
           playSuccessChime();
-          showToast('Everything has been reset successfully! (Sales, Reports & Items)', 'trash-2');
+          showToast('Everything reset successfully!', 'trash-2');
         } catch (err) {
           console.error('[Reset Error]', err);
           showToast('Error occurred while resetting data', 'alert-circle');
@@ -2510,7 +3722,7 @@
      * CLEAR SALES & REPORTS ONLY (Keeps Custom Registered Items)
      */
     async function confirmClearSalesOnly() {
-      const confirmMsg = "Clear Sales & Commission History?\n\nThis will clear:\n• All Sales & Bills\n• All Reports & Daily Stats\n• 5% Cumulative Commission (0.00)\n\n(Your registered Items will NOT be deleted).";
+      const confirmMsg = "Clear Sales & Commission History?\n\nThis will clear:\n• All Sales & Bills\n• All Reports & Daily Stats\n• Cumulative Commission (0.00)\n\n(Your registered Items will NOT be deleted).";
 
       if (confirm(confirmMsg)) {
         try {
@@ -2519,7 +3731,7 @@
           AppState.activeBill.items = [];
           AppState.lastFilteredBills = [];
           AppState.lastItemBreakdown = [];
-          AppState.lastTotals = { totalSales: 0, totalBills: 0, totalFree: 0, totalReturns: 0, totalSalary: 0 };
+          AppState.lastTotals = { totalGrossSales: 0, totalReturnDeductions: 0, totalNetSales: 0, totalBills: 0, totalFree: 0, totalReturns: 0, totalSalary: 0 };
 
           await refreshDashboard();
           await loadReportData();
@@ -2527,7 +3739,7 @@
           renderPOSItemsGrid();
 
           playSuccessChime();
-          showToast('Sales, Reports & 5% Salary Cleared!', 'check-circle-2');
+          showToast('Sales, Reports & Commission Cleared!', 'check-circle-2');
         } catch (err) {
           console.error('[Clear Sales Error]', err);
           showToast('Error clearing sales data', 'alert-circle');
@@ -2572,7 +3784,6 @@
       }, 2600);
     }
 
-    // Lightweight Web Audio API synthesizer for tactile mobile sound
     let audioCtx = null;
     function getAudioContext() {
       if (!audioCtx) {
@@ -2596,9 +3807,7 @@
         gain.connect(ctx.destination);
         osc.start();
         osc.stop(ctx.currentTime + duration);
-      } catch (e) {
-        // AudioContext policy suppression safe fallback
-      }
+      } catch (e) {}
     }
 
     function playSuccessChime() {
