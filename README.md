@@ -16,35 +16,45 @@ All files are structured flat in the root directory for instant **GitHub Pages**
 - In-app PIN change capability under Settings.
 
 ### 2. 🛒 Main POS / Sales Screen
-- Large mobile-friendly item cards with pre-filled **Retailer Prices (LKR)**.
-- Category filters & live search bar.
+- Large mobile-friendly item cards with pre-filled **Retailer Prices (LKR)** and category pills.
 - **Fast Input Bottom Sheet:**
   - Auto-selected Item Name & Unit Price.
-  - **Qty Sold** (+/- steppers, +1, +5, +10 quick buttons).
-  - **Free Issues** (number of free promotional packets given).
-  - **Return Qty** (customer returned packets).
-  - Live Line Total & 5% Commission preview.
-- **Floating Cart Tray** with item count, total free issues, total returns, and running bill total.
-- **Big Green "SAVE BILL" Button:**
-  - One-tap transaction saving into local **IndexedDB** (`Dexie.js`).
-  - Stores exact timestamp (`YYYY-MM-DD HH:mm:ss`), date, sales amount, free issues, returns, 5% commission, and items JSON.
-  - Instant audio-visual feedback and input reset for the next sale.
+  - **Qty Sold** (+/- steppers, +1, +5, +10, +20, +25, +50, +100, +200 quick buttons).
+  - **Auto Free Issue Schemes (ස්වයංක්‍රීය Free Issue ක්‍රමය):**
+    - **Default Standard Tiers:**
+      - **25 Pkts** ➔ **2 Free**
+      - **50 Pkts** ➔ **5 Free**
+      - **100 Pkts** ➔ **15 Free**
+      - **200 Pkts** ➔ **40 Free**
+      - **300 Pkts** ➔ **60 Free**
+      - **400 Pkts** ➔ **80 Free**
+    - **Dynamic Shop Preset Chips:** Quick one-touch chips for shop variations (e.g. 50 ➔ 10 Free, 100 ➔ 18 or 20 Free, 200 ➔ 50 Free).
+    - **Configurable Free Tiers:** In Settings, users can add, edit, remove, or toggle auto-free calculations and customize tiers at any time.
+  - **Return Handling & Exchanges (ආපසු ගැනීම් & හුවමාරු):**
+    - **1-to-1 Exchange / Replacement (හුවමාරු):** Replace expired or damaged items with fresh stock with zero impact on bill amount.
+    - **Deduct from Bill (බිලෙන් අඩු කිරීම):** Deduct return amount directly from bill total (`Gross Sales - Return Value = Net Sales`). Reduces Day Sales and Sales Rep Commission proportionally.
+    - **Return Reasons:** Expired / Damaged vs Unsold / Slow-moving stock.
+    - **Custom Return Rates:** Flexible return pricing (e.g. return credited at Rs. 115 instead of MRP Rs. 130).
+    - **Return-Only / Cross-Item Exchanges:** Return items with 0 sales qty or cross-item swaps.
+  - Live preview of Gross Sales, Return Deductions, Net Line Total, and Net Commission.
+- **Floating Cart Tray** with real-time Net Bill Total and item count.
+- **One-Tap "SAVE BILL":** Saves into IndexedDB (`Dexie.js`) with full transaction itemization.
 
 ### 3. 📊 Daily Dashboard (Dawase Dashboard)
-- **💵 Dawase Sale Eka (Today's Sales):** Real-time daily revenue in LKR.
+- **💵 Dawase Net Sale Eka (Today's Net Sales):** Real-time daily net revenue (`Gross Sales - Return Deductions`).
 - **🧾 Bill Gana (Total Bills Count):** Total completed transactions today.
 - **🎁 Free Issues Giyapu Pekat Gana:** Total free issue packets given today.
-- **🔄 Return Apu Gana:** Total quantity & value of returned items today.
-- **💰 5% Salary / Commission Accumulator:**
-  - **Today's 5% Commission:** Automatically calculated (`Today's Sales * 5%`).
+- **🔄 Return Apu Gana:** Total return packets, with breakdown of Exchanged vs Bill Deductions.
+- **💰 Commission Salary Accumulator:**
+  - **Today's Net Commission:** Automatically adjusted for any return deductions.
   - **Cumulative Total Salary Balance:** Day-by-day running total across all recorded days in the database.
-- **Today's Bills History Log:** Expandable transaction records for today.
+- **Today's Bills History Log:** Expandable transaction records showing gross sales, return deductions, net amount, and commission.
 
 ### 4. 📑 Reporting & PDF Export Module
 - **Filter Periods:** Weekly (Last 7 Days), Monthly, Yearly, and All-Time.
-- **Summary KPIs:** Total Sales, 5% Commission, Bill Count, Free Issues, Returns.
-- **Item-Wise Sales Breakdown Table:** Aggregated quantities sold, free issues, returns, and sales revenue per item.
-- **One-Click "DOWNLOAD PDF REPORT":** High-resolution, print-ready PDF invoice/report generated with `html2pdf.js`.
+- **Summary KPIs:** Gross Sales, Return Deductions, Net Sales, Commission Earned, Bill Count, Free Issues, Returns / Exchanges.
+- **Item-Wise Sales Breakdown Table:** Aggregated quantities sold, free issues, returns, gross sales, return deductions, and net sales per item.
+- **One-Click "DOWNLOAD PDF REPORT":** High-resolution, print-ready PDF report generated with `html2pdf.js`.
 
 ### 5. ⚙️ Item Master, Data Management & Reset
 - Add, edit, and delete items with retailer prices and categories.
