@@ -1,4 +1,5 @@
-const CACHE_NAME = 'mob-pos-v2.1.1';
+const CACHE_NAME = 'mob-pos-v2.1.2';
+
 
 
 // ALL assets are local — no CDN needed

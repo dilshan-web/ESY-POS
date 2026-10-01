@@ -369,26 +369,27 @@
               </div>
               <div>
                 <h4 class="text-xs font-bold uppercase tracking-wider text-yellow-300">Commission Salary Accumulator</h4>
-                <p class="text-[10px] text-slate-300">Per-Product Commission & Running Total</p>
+                <p class="text-[10px] text-slate-300">Daily & Monthly Commission Tracker</p>
               </div>
             </div>
-            <span class="text-[10px] font-bold px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300">Per Item %</span>
+            <span id="dash-month-pill" class="text-[10px] font-bold px-2 py-0.5 bg-yellow-500/20 border border-yellow-500/30 rounded-full text-yellow-300">This Month</span>
           </div>
 
           <div class="grid grid-cols-2 gap-3 pt-1 border-t border-yellow-500/20">
             <div>
               <div class="text-[10px] font-semibold text-slate-400">Today's Commission</div>
-              <div class="text-[9px] text-slate-500 font-mono">Per-item rate x Qty</div>
+              <div class="text-[9px] text-slate-500 font-mono">Dawase Commission</div>
               <div id="dash-today-salary" class="text-base font-black text-yellow-400 mt-0.5 font-mono">LKR 0.00</div>
             </div>
 
             <div class="text-right">
-              <div class="text-[10px] font-semibold text-emerald-300">Cumulative Total Salary</div>
-              <div class="text-[9px] text-slate-400 font-mono">Dawasa gane ekathu wuna</div>
+              <div id="dash-month-salary-title" class="text-[10px] font-semibold text-emerald-300">This Month's Total Salary</div>
+              <div class="text-[9px] text-slate-400 font-mono">Mase ekathu wuna comm.</div>
               <div id="dash-cumulative-salary" class="text-lg font-black text-emerald-400 mt-0.5 font-mono tracking-tight">LKR 0.00</div>
             </div>
           </div>
         </div>
+
 
         <!-- Today's Items Sold Section -->
         <div class="bg-surface-850 rounded-2xl border border-slate-800 overflow-hidden">
@@ -1821,10 +1822,12 @@
     }
 
 
-    // --- 9. Daily Dashboard & Commission Salary Accumulator ---
+    // --- 9. Daily Dashboard & Monthly Commission Salary Accumulator ---
     async function refreshDashboard() {
       const now = new Date();
       const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+      const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const currentMonthName = now.toLocaleString('default', { month: 'long' });
 
       // 1. Fetch Today's Bills (for accurate salary from per-item commission)
       const todayBillsList = await db.sales.where('date').equals(todayStr).reverse().toArray();
@@ -1848,10 +1851,13 @@
       // 2. Today's Commission Salary (actual per-item rate)
       document.getElementById('dash-today-salary').innerText = `LKR ${todaySalary.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 
-      // 3. CUMULATIVE SALARY ACCUMULATOR ACROSS ALL RECORDED DAYS
-      const allDailySummaries = await db.dailySummaries.toArray();
-      const cumulativeSalaryTotal = allDailySummaries.reduce((sum, day) => sum + (day.salaryEarned || 0), 0);
-      document.getElementById('dash-cumulative-salary').innerText = `LKR ${cumulativeSalaryTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      // 3. THIS MONTH'S CUMULATIVE SALARY ACCUMULATOR (Resets on the 1st of each month)
+      const monthBills = await db.sales.where('yearMonth').equals(currentYearMonth).toArray();
+      const monthSalaryTotal = monthBills.reduce((sum, b) => sum + (b.salaryEarned || 0), 0);
+      document.getElementById('dash-cumulative-salary').innerText = `LKR ${monthSalaryTotal.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      
+      const monthTitleEl = document.getElementById('dash-month-salary-title');
+      if (monthTitleEl) monthTitleEl.innerText = `${currentMonthName} Total Salary`;
 
       // 4. Render Today's Items Sold
       renderTodayItemsSold(todayBillsList);
@@ -1859,6 +1865,7 @@
       // 5. Render Today's Saved Bills List
       renderTodayBillsList(todayBillsList);
     }
+
 
     function renderTodayItemsSold(bills) {
       const container = document.getElementById('today-items-sold-list');
@@ -2018,31 +2025,40 @@
 
     async function loadReportData() {
       const now = new Date();
+      const currentYearMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
+      const startOfMonthStr = `${currentYearMonth}-01`;
+      const currentYearStr = `${now.getFullYear()}`;
       let filteredBills = [];
-      let periodLabel = "Weekly (Last 7 Days)";
+      let periodLabel = "This Week";
 
       const allBills = await db.sales.reverse().toArray();
 
       if (AppState.reportPeriod === 'weekly') {
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(now.getDate() - 7);
-        const threshold = sevenDaysAgo.toISOString().split('T')[0];
-        filteredBills = allBills.filter(b => b.date >= threshold);
-        periodLabel = "Weekly Summary (Last 7 Days)";
+        // Calculate start of current week (Monday)
+        const d = new Date(now);
+        const day = d.getDay();
+        const diff = d.getDate() - (day === 0 ? 6 : day - 1); // Monday
+        d.setDate(diff);
+        let weekStartStr = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+        // If week start is before 1st of current month, clamp to 1st of month so new month starts clean
+        if (weekStartStr < startOfMonthStr) {
+          weekStartStr = startOfMonthStr;
+        }
+        filteredBills = allBills.filter(b => b.date >= weekStartStr && b.yearMonth === currentYearMonth);
+        periodLabel = `This Week (${weekStartStr} to Today)`;
       } else if (AppState.reportPeriod === 'monthly') {
-        const currentMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}`;
-        filteredBills = allBills.filter(b => b.yearMonth === currentMonth);
+        filteredBills = allBills.filter(b => b.yearMonth === currentYearMonth);
         periodLabel = `Monthly Summary (${now.toLocaleString('default', { month: 'long', year: 'numeric' })})`;
       } else if (AppState.reportPeriod === 'yearly') {
-        const currentYear = `${now.getFullYear()}`;
-        filteredBills = allBills.filter(b => b.date.startsWith(currentYear));
-        periodLabel = `Yearly Summary (${currentYear})`;
+        filteredBills = allBills.filter(b => b.date.startsWith(currentYearStr));
+        periodLabel = `Yearly Summary (${currentYearStr})`;
       } else {
         filteredBills = allBills;
         periodLabel = "All Recorded Transactions Summary";
       }
 
       document.getElementById('report-period-label').innerText = periodLabel;
+
 
       // Aggregations
       const totalSales = filteredBills.reduce((acc, b) => acc + (b.totalSales || 0), 0);
